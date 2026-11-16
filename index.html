@@ -1,225 +1,1061 @@
-<!doctype html>
-<html lang="cs">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pavel Škuthan</title>
-  <meta name="description" content="Osobní web Pavla Škuthana – zkušenosti, dovednosti a kontakt." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <script>
-    // Nastaví téma ještě před vykreslením, aby stránka neblikla.
-    (function () {
-      document.documentElement.classList.add('js');
-      try {
-        var saved = localStorage.getItem('theme');
-        var dark = saved ? saved === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (e) {
-        document.documentElement.dataset.theme = 'light';
+<title>Pavel Škuthan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Osobní web Pavla Škuthana – zkušenosti, dovednosti a kontakt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<style id="page-css">
+/* Rozvržení: jedna dlouhá stránka, barevné pásy přes celou šířku, obsah ve sloupci max 1100px. */
+:root {
+  --font-sans: 'Outfit', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --bg: hsl(210 40% 98%);
+  --bg-tint: hsl(225 100% 97%);
+  --surface: hsl(0 0% 100%);
+  --fg: hsl(222 30% 14%);
+  --muted: hsl(222 12% 40%);
+  --primary: hsl(245 100% 60%);
+  --primary-edge: hsl(245 80% 42%);
+  --on-primary: hsl(0 0% 100%);
+  --secondary: hsl(333 100% 47%);
+  --tertiary: hsl(42 100% 50%);
+  --border: hsl(222 25% 88%);
+  --callout: hsl(48 100% 92%);
+  --callout-border: hsl(42 100% 50%);
+  --blob-1: hsl(245 100% 75% / 0.45);
+  --blob-2: hsl(333 100% 70% / 0.35);
+  --header-bg: hsl(210 40% 98% / 0.8);
+  --edit: hsl(42 100% 50%);
+  --edit-bg: hsl(48 100% 90%);
+  --danger: hsl(355 80% 52%);
+  --shadow-color: 225deg 40% 50%;
+  --sun-r: 5px;
+  --moon-cx: 24px;
+  --moon-cy: 10px;
+  --rays: 1;
+  --rays-turn: 0deg;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: hsl(220 35% 9%);
+    --bg-tint: hsl(222 35% 12%);
+    --surface: hsl(220 30% 14%);
+    --fg: hsl(210 30% 94%);
+    --muted: hsl(215 18% 70%);
+    --primary: hsl(50 100% 58%);
+    --primary-edge: hsl(42 90% 38%);
+    --on-primary: hsl(220 35% 9%);
+    --secondary: hsl(333 100% 68%);
+    --tertiary: hsl(190 100% 55%);
+    --border: hsl(220 25% 23%);
+    --callout: hsl(45 60% 14%);
+    --callout-border: hsl(48 100% 50%);
+    --blob-1: hsl(260 100% 60% / 0.28);
+    --blob-2: hsl(333 100% 55% / 0.2);
+    --header-bg: hsl(220 35% 9% / 0.8);
+    --edit: hsl(48 100% 55%);
+    --edit-bg: hsl(45 60% 18%);
+    --danger: hsl(355 90% 66%);
+    --shadow-color: 220deg 60% 2%;
+    --sun-r: 9px;
+    --moon-cx: 17px;
+    --moon-cy: 7px;
+    --rays: 0;
+    --rays-turn: -60deg;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: hsl(220 35% 9%);
+  --bg-tint: hsl(222 35% 12%);
+  --surface: hsl(220 30% 14%);
+  --fg: hsl(210 30% 94%);
+  --muted: hsl(215 18% 70%);
+  --primary: hsl(50 100% 58%);
+  --primary-edge: hsl(42 90% 38%);
+  --on-primary: hsl(220 35% 9%);
+  --secondary: hsl(333 100% 68%);
+  --tertiary: hsl(190 100% 55%);
+  --border: hsl(220 25% 23%);
+  --callout: hsl(45 60% 14%);
+  --callout-border: hsl(48 100% 50%);
+  --blob-1: hsl(260 100% 60% / 0.28);
+  --blob-2: hsl(333 100% 55% / 0.2);
+  --header-bg: hsl(220 35% 9% / 0.8);
+  --edit: hsl(48 100% 55%);
+  --edit-bg: hsl(45 60% 18%);
+  --danger: hsl(355 90% 66%);
+  --shadow-color: 220deg 60% 2%;
+  --sun-r: 9px;
+  --moon-cx: 17px;
+  --moon-cy: 7px;
+  --rays: 0;
+  --rays-turn: -60deg;
+  color-scheme: dark;
+}
+
+:root {
+  --shadow:
+    0 1px 1px hsl(var(--shadow-color) / 0.08),
+    0 3px 6px hsl(var(--shadow-color) / 0.08),
+    0 10px 24px hsl(var(--shadow-color) / 0.1);
+  --shadow-lg:
+    0 2px 2px hsl(var(--shadow-color) / 0.08),
+    0 8px 16px hsl(var(--shadow-color) / 0.1),
+    0 24px 48px hsl(var(--shadow-color) / 0.14);
+  --radius: 16px;
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  line-height: 1.65;
+  background: var(--bg);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+body::before {
+  content: "";
+  position: fixed; inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 60;
+  background: var(--bg);
+}
+h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
+h1, h2, h3 { text-wrap: balance; }
+img, svg { display: block; max-width: 100%; }
+a { color: var(--primary); }
+button { font: inherit; }
+::selection { background: var(--secondary); color: var(--on-primary); }
+:focus-visible { outline: 3px solid var(--secondary); outline-offset: 3px; border-radius: 6px; }
+
+.wrapper {
+  width: 100%;
+  max-width: 1100px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (min-width: 640px) {
+  .wrapper {
+    padding-left: max(32px, env(safe-area-inset-left, 0px));
+    padding-right: max(32px, env(safe-area-inset-right, 0px));
+  }
+}
+
+/* ---------- Hlavička ---------- */
+.site-header {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+  background: var(--header-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 300ms;
+}
+.site-header.scrolled { border-bottom-color: var(--border); }
+.header-inner { display: flex; align-items: center; gap: 24px; height: 72px; }
+.logo {
+  display: flex; align-items: center; gap: 2px;
+  font-weight: 800; font-size: 1.35rem; letter-spacing: -0.02em;
+  color: var(--fg); text-decoration: none;
+}
+.logo-mark {
+  display: inline-grid; place-items: center;
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: var(--on-primary);
+  transition: transform 400ms var(--spring);
+}
+.logo:hover .logo-mark { transform: rotate(-12deg) scale(1.1); }
+.logo-text { display: none; }
+@media (min-width: 420px) { .logo-text { display: inline; } }
+.nav { display: none; margin-left: auto; gap: 8px; }
+@media (min-width: 760px) { .nav { display: flex; } }
+.nav a {
+  position: relative;
+  padding: 6px 12px;
+  font-weight: 500; font-size: 1rem;
+  color: var(--fg); text-decoration: none;
+}
+.nav a::after {
+  content: '';
+  position: absolute; left: 12px; right: 12px; bottom: 2px;
+  height: 3px; border-radius: 3px;
+  background: var(--secondary);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 300ms var(--spring);
+}
+.nav a:hover::after { transform: scaleX(1); }
+.theme-toggle {
+  margin-left: auto;
+  display: grid; place-items: center;
+  width: 44px; height: 44px;
+  border: none; border-radius: 50%;
+  background: transparent; color: var(--fg);
+  cursor: pointer;
+}
+@media (min-width: 760px) { .theme-toggle { margin-left: 0; } }
+.theme-toggle:hover { background: var(--bg-tint); }
+.sun-core { r: var(--sun-r); transition: r 500ms var(--spring); }
+.moon-cut { cx: var(--moon-cx); cy: var(--moon-cy); transition: cx 500ms var(--spring), cy 500ms var(--spring); }
+.sun-rays { opacity: var(--rays); transform: rotate(var(--rays-turn)); transform-origin: 12px 12px; transition: opacity 400ms, transform 500ms var(--spring); }
+
+/* ---------- Úvod ---------- */
+.hero { position: relative; padding-block: 88px 150px; overflow: hidden; isolation: isolate; }
+@media (min-width: 760px) { .hero { padding-block: 120px 180px; } }
+.blob {
+  position: absolute; z-index: -1;
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: float 14s ease-in-out infinite alternate;
+}
+.blob-1 { width: 520px; height: 520px; background: var(--blob-1); top: -160px; right: -140px; }
+.blob-2 { width: 420px; height: 420px; background: var(--blob-2); bottom: -120px; left: -160px; animation-delay: -6s; }
+@keyframes float { to { transform: translate(-40px, 30px) scale(1.12); } }
+.hero-inner { max-width: 820px; display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+.eyebrow { font-family: var(--font-mono); font-size: 0.95rem; font-weight: 600; color: var(--secondary); }
+.hero-title {
+  font-size: clamp(2.6rem, 8vw, 5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+.gradient-text {
+  background: linear-gradient(100deg, var(--primary) 10%, var(--secondary) 60%, var(--tertiary) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite alternate;
+}
+@keyframes shimmer { to { background-position: 100% center; } }
+.sparkle-wrap { position: relative; display: inline-block; }
+.sparkle { position: absolute; z-index: 2; pointer-events: none; animation: sparkle-life 800ms ease-in-out forwards; }
+.sparkle svg { animation: sparkle-spin 800ms linear forwards; }
+@keyframes sparkle-life { 0% { transform: scale(0); } 50% { transform: scale(1); } 100% { transform: scale(0); } }
+@keyframes sparkle-spin { to { transform: rotate(180deg); } }
+.hero-lede { font-size: clamp(1.15rem, 2.4vw, 1.4rem); color: var(--muted); max-width: 640px; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 16px; }
+.hero-wave { position: absolute; left: 0; bottom: -1px; width: 100%; height: 80px; fill: var(--bg); }
+
+/* ---------- Tlačítka ---------- */
+.btn-3d {
+  position: relative; display: inline-block;
+  padding: 0; border: none; background: transparent;
+  text-decoration: none; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-shadow, .btn-edge { position: absolute; inset: 0; border-radius: 14px; }
+.btn-shadow {
+  background: hsl(0 0% 0% / 0.22);
+  transform: translateY(2px);
+  filter: blur(4px);
+  transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
+}
+.btn-edge { background: var(--primary-edge); }
+.btn-front {
+  position: relative; display: block;
+  padding: 14px 32px;
+  border-radius: 14px;
+  font-weight: 700; font-size: 1.1rem;
+  color: var(--on-primary);
+  background: var(--primary);
+  transform: translateY(-4px);
+  transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
+}
+.btn-3d:hover .btn-front { transform: translateY(-6px); transition: transform 250ms var(--spring); }
+.btn-3d:hover .btn-shadow { transform: translateY(4px); transition-duration: 250ms; }
+.btn-3d:active .btn-front { transform: translateY(-2px); transition-duration: 34ms; }
+.btn-3d:active .btn-shadow { transform: translateY(1px); transition-duration: 34ms; }
+.btn-ghost {
+  font-weight: 600; color: var(--fg); text-decoration: none;
+  background-image: linear-gradient(var(--secondary), var(--secondary));
+  background-size: 0% 3px; background-position: 0 100%; background-repeat: no-repeat;
+  padding-bottom: 2px;
+  transition: background-size 350ms var(--spring);
+}
+.btn-ghost:hover { background-size: 100% 3px; }
+
+/* ---------- Sekce ---------- */
+.section { padding-block: 88px; }
+.section-tinted { background: var(--bg-tint); }
+.section-title {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 32px;
+}
+.section-title::after {
+  content: '';
+  display: block;
+  width: 64px; height: 6px; margin-top: 10px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+.section-lede { color: var(--muted); font-size: 1.2rem; margin: -12px 0 40px; max-width: 620px; }
+
+.about-grid { display: grid; gap: 48px; }
+@media (min-width: 860px) { .about-grid { grid-template-columns: 1.4fr 1fr; align-items: start; } }
+.about-text { min-width: 0; display: flex; flex-direction: column; gap: 1.1em; max-width: 65ch; }
+.callout {
+  display: flex; gap: 14px;
+  margin-top: 12px;
+  padding: 20px 24px;
+  background: var(--callout);
+  border-left: 4px solid var(--callout-border);
+  border-radius: 6px 14px 14px 6px;
+}
+.callout-icon { font-size: 1.4rem; line-height: 1.4; }
+.about-card {
+  background: var(--surface);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: var(--shadow-lg);
+  transition: transform 500ms var(--spring);
+  min-width: 0;
+}
+.about-card:hover { transform: rotate(-1deg) translateY(-4px); }
+.avatar-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: 28px; }
+.avatar {
+  display: grid; place-items: center;
+  width: 128px; height: 128px;
+  border-radius: 36px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: var(--on-primary);
+  font-size: 2.6rem; font-weight: 800;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transform: rotate(4deg);
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+.facts { display: grid; gap: 14px; }
+.fact {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--border);
+  font-size: 1rem;
+}
+.fact:last-child { border-bottom: none; padding-bottom: 0; }
+.fact dt { color: var(--muted); }
+.fact dd { font-weight: 600; text-align: right; margin-left: auto; }
+
+.timeline { list-style: none; padding: 0; position: relative; display: grid; gap: 32px; }
+.timeline::before {
+  content: '';
+  position: absolute; left: 11px; top: 8px; bottom: 8px;
+  width: 3px; border-radius: 3px;
+  background: linear-gradient(var(--primary), var(--secondary), transparent);
+}
+.timeline-item { position: relative; padding-left: 48px; min-width: 0; }
+.timeline-dot {
+  position: absolute; left: 2px; top: 28px;
+  width: 21px; height: 21px; border-radius: 50%;
+  background: var(--bg-tint);
+  border: 4px solid var(--secondary);
+  transition: transform 400ms var(--spring), background 300ms;
+}
+.timeline-item:hover .timeline-dot { transform: scale(1.35); background: var(--secondary); }
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  box-shadow: var(--shadow);
+  transition: transform 400ms var(--spring), box-shadow 400ms;
+}
+.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.card-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; }
+.card-head h3 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; }
+.pill {
+  font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600;
+  padding: 4px 12px; border-radius: 999px;
+  background: color-mix(in srgb, var(--primary) 14%, transparent);
+  color: var(--primary);
+}
+.card-company { color: var(--muted); font-weight: 500; margin: 4px 0 12px; }
+.card-list { padding: 0; list-style: none; display: grid; gap: 6px; }
+.card-list li { position: relative; padding-left: 26px; display: flex; gap: 8px; align-items: baseline; }
+.card-list li::before { content: '→'; position: absolute; left: 0; color: var(--secondary); font-weight: 700; }
+
+.skills-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+.skill-card {
+  position: relative;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+  display: flex; flex-direction: column; gap: 4px;
+  transition: transform 400ms var(--spring), border-color 300ms, box-shadow 400ms;
+}
+.skill-card:hover { transform: translateY(-6px) rotate(-1deg); border-color: var(--primary); box-shadow: var(--shadow-lg); }
+.skill-card:nth-child(even):hover { transform: translateY(-6px) rotate(1deg); }
+.skill-emoji { display: inline-block; align-self: flex-start; font-size: 2.2rem; margin-bottom: 8px; }
+.skill-card h3 { font-size: 1.25rem; font-weight: 700; }
+.skill-card p { color: var(--muted); font-size: 1rem; }
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; margin-top: 40px; }
+.tag-cloud li {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 0.9rem;
+  padding: 6px 14px; border-radius: 999px;
+  background: var(--bg-tint);
+  border: 1px solid var(--border);
+  transition: transform 300ms var(--spring), background 200ms, color 200ms;
+}
+body:not(.editing) .tag-cloud li:hover { transform: scale(1.08); background: var(--secondary); color: var(--on-primary); border-color: transparent; }
+
+.contact { text-align: center; padding-bottom: 120px; }
+.contact-inner {
+  max-width: 720px;
+  padding: 56px 24px;
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at 15% 20%, var(--blob-1), transparent 55%),
+    radial-gradient(circle at 85% 80%, var(--blob-2), transparent 55%),
+    var(--surface);
+  box-shadow: var(--shadow-lg);
+}
+.contact .section-title::after { margin-inline: auto; }
+.contact .section-lede { margin-inline: auto; }
+.contact-actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 20px; }
+.email-line { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; margin-top: 24px; font-family: var(--font-mono); font-size: 0.95rem; color: var(--muted); }
+.email-line .email { color: var(--fg); user-select: all; overflow-wrap: anywhere; }
+.copy-btn {
+  border: 1px solid var(--border); background: var(--bg-tint); color: var(--fg);
+  border-radius: 8px; padding: 2px 10px; font-size: 0.85rem; cursor: pointer;
+}
+.social {
+  display: grid; place-items: center;
+  width: 56px; height: 56px; border-radius: 50%;
+  color: var(--fg);
+  background: var(--bg-tint);
+}
+.social:hover { color: var(--primary); }
+
+.site-footer { border-top: 1px solid var(--border); padding-block: 32px; color: var(--muted); font-size: 0.95rem; }
+.footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+
+.boop { display: inline-block; transition: transform 300ms var(--spring); }
+
+/* ---------- Režim úprav ---------- */
+.editbar {
+  position: fixed;
+  right: calc(16px + env(safe-area-inset-right, 0px));
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  z-index: 80;
+  display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 8px;
+  max-width: calc(100vw - 32px);
+}
+.editbar button {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 700; font-size: 1rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: transform 250ms var(--spring);
+}
+.editbar button:hover:not(:disabled) { transform: translateY(-2px); }
+.editbar button:disabled { opacity: 0.55; cursor: default; }
+.btn-edit, .btn-save { background: var(--primary); color: var(--on-primary); }
+.btn-cancel { background: var(--surface); color: var(--fg); border-color: var(--border) !important; }
+.edit-status {
+  flex-basis: 100%;
+  text-align: right;
+  font-size: 0.9rem; font-weight: 600;
+  color: var(--fg);
+}
+.edit-status:empty { display: none; }
+.edit-status span { display: inline-block; background: var(--surface); border: 1px solid var(--border); padding: 6px 12px; border-radius: 10px; box-shadow: var(--shadow); }
+
+.edit-banner {
+  background: var(--edit-bg);
+  border-bottom: 2px solid var(--edit);
+  font-size: 0.98rem;
+}
+.edit-banner .wrapper { padding-block: 12px; }
+
+body.editing [data-path] {
+  outline: 2px dashed color-mix(in srgb, var(--edit) 70%, transparent);
+  outline-offset: 3px;
+  border-radius: 4px;
+  cursor: text;
+  min-width: 2ch;
+}
+body.editing [data-path]:hover { outline-color: var(--edit); }
+body.editing [data-path]:focus { outline: 3px solid var(--edit); background: color-mix(in srgb, var(--edit) 12%, transparent); }
+body.editing [data-path]:empty::before { content: attr(data-ph); color: var(--muted); font-style: italic; }
+body.editing .is-ph { background: color-mix(in srgb, var(--edit) 22%, transparent); }
+body.editing .gradient-text[data-path] { -webkit-text-fill-color: currentColor; color: var(--primary); background: none; }
+.edit-only { display: none !important; }
+body.editing .edit-only { display: inline-flex !important; }
+body.editing .card:hover, body.editing .skill-card:hover, body.editing .about-card:hover { transform: none; }
+
+.add-btn {
+  align-items: center; gap: 6px;
+  border: 2px dashed var(--edit);
+  background: transparent; color: var(--fg);
+  border-radius: 12px;
+  padding: 8px 14px;
+  font-weight: 600; font-size: 0.95rem;
+  cursor: pointer;
+}
+.add-btn:hover { background: var(--edit-bg); }
+.del-btn {
+  flex: none;
+  align-items: center; justify-content: center;
+  width: 28px; height: 28px;
+  border: none; border-radius: 50%;
+  background: color-mix(in srgb, var(--danger) 14%, transparent);
+  color: var(--danger);
+  font-size: 1.1rem; line-height: 1; font-weight: 700;
+  cursor: pointer;
+}
+.del-btn:hover { background: var(--danger); color: var(--on-primary); }
+.skill-card > .del-btn, .card > .del-btn { position: absolute; top: 10px; right: 10px; }
+.card { position: relative; }
+body.editing .card { padding-right: 52px; }
+.row-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+  .sparkle { display: none; }
+}
+</style>
+<script id="theme-init">
+(function () {
+  try {
+    var saved = localStorage.getItem('pavel-theme');
+    if (saved === 'dark' || saved === 'light') document.documentElement.dataset.theme = saved;
+  } catch (e) {}
+})();
+</script>
+<script type="application/json" id="page-data">
+{
+  "name": "Pavel Škuthan",
+  "greeting": "👋 Ahoj, vítej!",
+  "lede": "[Pracovní pozice / headline z LinkedInu]. Rád stavím věci, které dávají smysl, a lidi, se kterými se dobře spolupracuje.",
+  "linkedin": "https://www.linkedin.com/in/pavel-skuthan-391909331/",
+  "photo": "",
+  "about": [
+    "[Krátké představení – kdo jsem, čemu se věnuji a co mě baví. Sem patří text ze sekce „Info“ na LinkedInu.]",
+    "[Druhý odstavec – na čem teď pracuji, jaké problémy rád řeším, případně něco osobního mimo práci.]"
+  ],
+  "fun": "[Jedna zábavná nebo překvapivá věc o mně.]",
+  "facts": [
+    { "label": "Lokalita", "value": "[Město, Česko]" },
+    { "label": "Aktuálně", "value": "[Pozice @ Firma]" },
+    { "label": "Vzdělání", "value": "[Škola / obor]" },
+    { "label": "Jazyky", "value": "Čeština, [Angličtina]" }
+  ],
+  "experience": [
+    { "role": "[Pozice]", "dates": "[2023 – současnost]", "company": "[Firma] · [Město]", "points": ["[Co jsem tam dělal / hlavní odpovědnost]", "[Výsledek nebo úspěch, ideálně s číslem]"] },
+    { "role": "[Pozice]", "dates": "[2020 – 2023]", "company": "[Firma] · [Město]", "points": ["[Co jsem tam dělal / hlavní odpovědnost]", "[Výsledek nebo úspěch]"] },
+    { "role": "[Studium / první pozice]", "dates": "[2016 – 2020]", "company": "[Škola nebo firma]", "points": ["[Zaměření, diplomka, projekt…]"] }
+  ],
+  "skillsLede": "Věci, ve kterých se cítím jako doma.",
+  "skills": [
+    { "emoji": "🚀", "title": "[Dovednost 1]", "text": "[Jedna věta, co s ní umím.]" },
+    { "emoji": "🧠", "title": "[Dovednost 2]", "text": "[Jedna věta, co s ní umím.]" },
+    { "emoji": "🤝", "title": "[Dovednost 3]", "text": "[Jedna věta, co s ní umím.]" },
+    { "emoji": "📊", "title": "[Dovednost 4]", "text": "[Jedna věta, co s ní umím.]" },
+    { "emoji": "🛠️", "title": "[Dovednost 5]", "text": "[Jedna věta, co s ní umím.]" },
+    { "emoji": "✨", "title": "[Dovednost 6]", "text": "[Jedna věta, co s ní umím.]" }
+  ],
+  "tags": ["[Nástroj]", "[Technologie]", "[Metodika]", "[Software]", "[Soft skill]"],
+  "contactTitle": "Pojďme si napsat",
+  "contactLede": "Ať už máte nabídku, nápad na spolupráci, nebo se chcete jen pozdravit, ozvěte se.",
+  "email": "[email@domena.cz]"
+}
+</script>
+<div id="app"></div>
+<script id="page-js">
+(function () {
+  'use strict';
+
+  var root = document.documentElement;
+  var app = document.getElementById('app');
+  var reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var saved = JSON.parse(document.getElementById('page-data').textContent);
+  var state = clone(saved);
+  var editing = false;
+  var artifactApi = null;
+  var assetsApi = null;
+  var busy = false;
+
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  function getPath(obj, path) {
+    return path.split('.').reduce(function (o, k) { return o == null ? o : o[k]; }, obj);
+  }
+  function setPath(obj, path, value) {
+    var keys = path.split('.');
+    var last = keys.pop();
+    var target = keys.reduce(function (o, k) { return o[k]; }, obj);
+    target[last] = value;
+  }
+  function isDirty() { return JSON.stringify(state) !== JSON.stringify(saved); }
+
+  /* Editovatelné pole: v režimu úprav dostane contenteditable. */
+  function f(tag, path, cls, ph) {
+    var val = getPath(state, path);
+    var classes = (cls || '') + (/^\[.*\]$/.test(String(val).trim()) ? ' is-ph' : '');
+    var attrs = ' data-path="' + path + '" data-ph="' + esc(ph || 'Napiš text…') + '"';
+    if (editing) attrs += ' contenteditable="plaintext-only" spellcheck="true"';
+    return '<' + tag + (classes.trim() ? ' class="' + classes.trim() + '"' : '') + attrs + '>' + esc(val) + '</' + tag + '>';
+  }
+  function del(action, label) {
+    return '<button type="button" class="del-btn edit-only" data-action="' + action + '" aria-label="' + esc(label) + '" title="' + esc(label) + '">×</button>';
+  }
+  function add(action, label) {
+    return '<button type="button" class="add-btn edit-only" data-action="' + action + '">+ ' + esc(label) + '</button>';
+  }
+  function initials(name) {
+    return String(name).split(/\s+/).filter(Boolean).map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
+  }
+
+  function render() {
+    var s = state;
+    var focusPath = document.activeElement && document.activeElement.dataset ? document.activeElement.dataset.path : null;
+    document.body.classList.toggle('editing', editing);
+
+    var html = '';
+    if (editing) {
+      html += '<div class="edit-banner" role="status"><div class="wrapper">✏️ <strong>Režim úprav.</strong> Klikni na libovolný text s čárkovaným rámečkem a přepiš ho. Žlutě jsou zvýrazněná místa, která je ještě potřeba vyplnit. Nic se neuloží, dokud nedáš <strong>Uložit</strong>.</div></div>';
+    }
+
+    html +=
+      '<header class="site-header"><div class="wrapper header-inner">' +
+        '<a class="logo" href="#top" aria-label="' + esc(s.name) + ' – domů"><span class="logo-mark">' + esc(initials(s.name).charAt(0)) + '</span><span class="logo-text">' + esc(s.name.slice(1)) + '</span></a>' +
+        '<nav class="nav" aria-label="Hlavní navigace"><a href="#o-mne">O mně</a><a href="#zkusenosti">Zkušenosti</a><a href="#dovednosti">Dovednosti</a><a href="#kontakt">Kontakt</a></nav>' +
+        '<button class="theme-toggle boop" type="button" data-action="theme" aria-label="Přepnout světlý a tmavý režim">' +
+          '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><mask id="moon-mask"><rect x="0" y="0" width="24" height="24" fill="white"/><circle class="moon-cut" cx="24" cy="10" r="6" fill="black"/></mask>' +
+          '<circle class="sun-core" cx="12" cy="12" r="5" fill="currentColor" mask="url(#moon-mask)"/>' +
+          '<g class="sun-rays" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></g></svg>' +
+        '</button>' +
+      '</div></header>';
+
+    html += '<main id="main">';
+
+    // Úvod
+    html +=
+      '<section class="hero" id="top"><div class="blob blob-1" aria-hidden="true"></div><div class="blob blob-2" aria-hidden="true"></div>' +
+      '<div class="wrapper"><div class="hero-inner">' +
+        f('p', 'greeting', 'eyebrow') +
+        '<h1 class="hero-title">Jsem <span class="sparkle-wrap">' + f('span', 'name', 'gradient-text', 'Jméno') + '</span></h1>' +
+        f('p', 'lede', 'hero-lede', 'Krátké představení') +
+        '<div class="hero-actions">' +
+          '<a class="btn-3d" href="#kontakt"><span class="btn-shadow"></span><span class="btn-edge"></span><span class="btn-front">Napište mi</span></a>' +
+          '<a class="btn-ghost" href="' + esc(s.linkedin) + '" target="_blank" rel="noopener">LinkedIn profil <span aria-hidden="true">↗</span></a>' +
+        '</div>' +
+      '</div></div>' +
+      '<svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0,64 C240,120 480,0 720,48 C960,96 1200,24 1440,56 L1440,120 L0,120 Z"/></svg>' +
+      '</section>';
+
+    // O mně
+    var photo = s.photo
+      ? '<img src="/_blob/' + esc(s.photo) + '" alt="' + esc(s.name) + '">'
+      : '<span>' + esc(initials(s.name)) + '</span>';
+    html +=
+      '<section class="section" id="o-mne"><div class="wrapper about-grid">' +
+        '<div class="about-text"><h2 class="section-title">O mně</h2>' +
+          s.about.map(function (_, i) {
+            return '<div style="display:flex;gap:8px;align-items:flex-start">' + f('p', 'about.' + i, '', 'Odstavec textu') + (s.about.length > 1 ? del('del-para:' + i, 'Smazat odstavec') : '') + '</div>';
+          }).join('') +
+          '<div>' + add('add-para', 'Přidat odstavec') + '</div>' +
+          '<aside class="callout"><span class="callout-icon" aria-hidden="true">💡</span><div><strong>Zajímavost:</strong> ' + f('span', 'fun', '', 'Něco zajímavého o mně') + '</div></aside>' +
+        '</div>' +
+        '<div class="about-card">' +
+          '<div class="avatar-wrap"><div class="avatar">' + photo + '</div>' +
+            (assetsApi ? '<span class="edit-only" style="gap:8px;flex-wrap:wrap;justify-content:center">' +
+              '<button type="button" class="add-btn" data-action="upload-photo">📷 ' + (s.photo ? 'Změnit fotku' : 'Nahrát fotku') + '</button>' +
+              (s.photo ? '<button type="button" class="add-btn" data-action="remove-photo">Odebrat</button>' : '') +
+              '</span>' : '') +
+          '</div>' +
+          '<dl class="facts">' +
+            s.facts.map(function (_, i) {
+              return '<div class="fact">' + f('dt', 'facts.' + i + '.label', '', 'Popisek') + f('dd', 'facts.' + i + '.value', '', 'Hodnota') + del('del-fact:' + i, 'Smazat řádek') + '</div>';
+            }).join('') +
+          '</dl>' +
+          '<div class="row-actions">' + add('add-fact', 'Přidat řádek') + '</div>' +
+        '</div>' +
+      '</div></section>';
+
+    // Zkušenosti
+    html +=
+      '<section class="section section-tinted" id="zkusenosti"><div class="wrapper">' +
+        '<h2 class="section-title">Zkušenosti</h2>' +
+        '<ol class="timeline">' +
+          s.experience.map(function (job, i) {
+            var p = 'experience.' + i;
+            return '<li class="timeline-item"><span class="timeline-dot" aria-hidden="true"></span><article class="card">' +
+              del('del-exp:' + i, 'Smazat celou pozici') +
+              '<header class="card-head">' + f('h3', p + '.role', '', 'Pozice') + f('span', p + '.dates', 'pill', 'Od – do') + '</header>' +
+              f('p', p + '.company', 'card-company', 'Firma · Město') +
+              '<ul class="card-list">' +
+                job.points.map(function (_, j) {
+                  return '<li>' + f('span', p + '.points.' + j, '', 'Co jsem dělal') + del('del-point:' + i + ':' + j, 'Smazat bod') + '</li>';
+                }).join('') +
+              '</ul>' +
+              '<div class="row-actions">' + add('add-point:' + i, 'Přidat bod') + '</div>' +
+            '</article></li>';
+          }).join('') +
+        '</ol>' +
+        '<div class="row-actions">' + add('add-exp', 'Přidat pozici') + '</div>' +
+      '</div></section>';
+
+    // Dovednosti
+    html +=
+      '<section class="section" id="dovednosti"><div class="wrapper">' +
+        '<h2 class="section-title">Dovednosti</h2>' +
+        f('p', 'skillsLede', 'section-lede', 'Úvodní věta') +
+        '<div class="skills-grid">' +
+          s.skills.map(function (_, i) {
+            var p = 'skills.' + i;
+            return '<div class="skill-card">' + del('del-skill:' + i, 'Smazat dovednost') +
+              f('span', p + '.emoji', 'skill-emoji boop', '⭐') + f('h3', p + '.title', '', 'Název') + f('p', p + '.text', '', 'Popis') + '</div>';
+          }).join('') +
+        '</div>' +
+        '<div class="row-actions">' + add('add-skill', 'Přidat dovednost') + '</div>' +
+        '<ul class="tag-cloud" aria-label="Další dovednosti">' +
+          s.tags.map(function (_, i) { return '<li>' + f('span', 'tags.' + i, '', 'Tag') + del('del-tag:' + i, 'Smazat tag') + '</li>'; }).join('') +
+          '<li class="edit-only" style="padding:0;border:none;background:none">' + add('add-tag', 'Přidat tag') + '</li>' +
+        '</ul>' +
+      '</div></section>';
+
+    // Kontakt
+    html +=
+      '<section class="section contact" id="kontakt"><div class="wrapper"><div class="contact-inner" style="margin-inline:auto">' +
+        f('h2', 'contactTitle', 'section-title', 'Nadpis') +
+        f('p', 'contactLede', 'section-lede', 'Text výzvy') +
+        '<div class="contact-actions">' +
+          '<a class="btn-3d" href="mailto:' + esc(s.email) + '"><span class="btn-shadow"></span><span class="btn-edge"></span><span class="btn-front">✉️ Poslat e-mail</span></a>' +
+          '<a class="social boop" href="' + esc(s.linkedin) + '" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>' +
+        '</div>' +
+        '<p class="email-line">' + f('span', 'email', 'email', 'tvuj@email.cz') + ' <button type="button" class="copy-btn" data-action="copy-email">Kopírovat</button></p>' +
+      '</div></div></section>';
+
+    html += '</main>';
+
+    html +=
+      '<footer class="site-footer"><div class="wrapper footer-inner">' +
+        '<p>© ' + new Date().getFullYear() + ' ' + esc(s.name) + '</p>' +
+        '<p>Vyrobeno s <span class="boop" aria-label="láskou">❤️</span> a trochou CSS kouzel</p>' +
+      '</div></footer>';
+
+    if (artifactApi) {
+      html += '<div class="editbar" aria-live="polite">' +
+        '<div class="edit-status" id="edit-status"></div>' +
+        (editing
+          ? '<button type="button" class="btn-cancel" data-action="cancel"' + (busy ? ' disabled' : '') + '>Zrušit</button>' +
+            '<button type="button" class="btn-save" data-action="save"' + (busy || !isDirty() ? ' disabled' : '') + '>' + (busy ? 'Ukládám…' : 'Uložit') + '</button>'
+          : '<button type="button" class="btn-edit" data-action="edit">✏️ Upravit stránku</button>') +
+      '</div>';
+    }
+
+    app.innerHTML = html;
+    onScroll();
+    if (focusPath) {
+      var el = app.querySelector('[data-path="' + focusPath + '"]');
+      if (el) placeCaretAtEnd(el);
+    }
+  }
+
+  function placeCaretAtEnd(el) {
+    el.focus();
+    try {
+      var r = document.createRange();
+      r.selectNodeContents(el);
+      r.collapse(false);
+      var sel = getSelection();
+      sel.removeAllRanges();
+      sel.addRange(r);
+    } catch (e) {}
+  }
+
+  var statusTimer;
+  function setStatus(msg, sticky) {
+    var el = document.getElementById('edit-status');
+    if (!el) return;
+    el.innerHTML = msg ? '<span>' + esc(msg) + '</span>' : '';
+    clearTimeout(statusTimer);
+    if (msg && !sticky) statusTimer = setTimeout(function () { setStatus(''); }, 5000);
+  }
+  function refreshSaveButton() {
+    var b = app.querySelector('.btn-save');
+    if (b) b.disabled = busy || !isDirty();
+  }
+
+  /* ---------- Uložení: stránka se znovu vygeneruje ze stavu ---------- */
+  var FALLBACK_RESET = ':root{color-scheme:light}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}';
+  function buildDocument() {
+    var resetEl = document.querySelector('head > style');
+    var reset = resetEl ? resetEl.textContent : FALLBACK_RESET;
+    var headMeta = [
+      '<title>Pavel Škuthan</title>',
+      '<meta name="claude:viewport-fit-sides" content="cover">',
+      '<meta name="description" content="Osobní web Pavla Škuthana – zkušenosti, dovednosti a kontakt.">',
+      '<link rel="preconnect" href="https://fonts.googleapis.com">',
+      '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
+      '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">'
+    ].join('\n');
+    var json = JSON.stringify(state, null, 2).replace(/</g, '\\u003c');
+    var css = document.getElementById('page-css').textContent;
+    var themeJs = document.getElementById('theme-init').textContent;
+    var pageJs = document.getElementById('page-js').textContent;
+    return '<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>' + reset + '</style></head><body>' +
+      headMeta + '\n' +
+      '<style id="page-css">' + css + '</style>\n' +
+      '<script id="theme-init">' + themeJs + '<\/script>\n' +
+      '<script type="application/json" id="page-data">\n' + json + '\n<\/script>\n' +
+      '<div id="app"></div>\n' +
+      '<script id="page-js">' + pageJs + '<\/script>\n' +
+      '</body></html>';
+  }
+
+  function save() {
+    if (!artifactApi || busy || !isDirty()) return;
+    busy = true;
+    // Kdyby uložení selhalo kvůli konfliktu, rozepsané změny přežijí znovunačtení.
+    try { sessionStorage.setItem('pavel-draft', JSON.stringify(state)); } catch (e) {}
+    render();
+    setStatus('Ukládám…', true);
+    artifactApi.publish(buildDocument()).then(function () {
+      try { sessionStorage.removeItem('pavel-draft'); } catch (e) {}
+      busy = false;
+      saved = clone(state);
+      setStatus('Uloženo. Stránka se načte v nové verzi.', true);
+    }, function (err) {
+      busy = false;
+      var code = err && err.code;
+      render();
+      if (code === 'conflict') {
+        setStatus('Mezitím vznikla novější verze. Stránka se načte znovu a tvoje změny obnovím.', true);
+        return;
       }
+      try { sessionStorage.removeItem('pavel-draft'); } catch (e) {}
+      if (code === 'not_writer' || code === 'not_granted' || code === 'not_declared' || code === 'consent_required' || code === 'capability_disabled') {
+        artifactApi = null;
+        editing = false;
+        render();
+        return;
+      }
+      var msg = {
+        rate_limited: 'Ukládáš moc často. Zkus to za chvilku znovu.',
+        too_large: 'Stránka je na uložení moc velká.',
+        invalid_content: 'Stránku se nepodařilo uložit, obsah je neplatný.'
+      }[code] || 'Uložení se nepovedlo. Zkus to prosím znovu.';
+      setStatus(msg, true);
+    });
+  }
+
+  /* ---------- Akce (tlačítka) ---------- */
+  function blankJob() { return { role: '[Pozice]', dates: '[Od – do]', company: '[Firma] · [Město]', points: ['[Co jsem tam dělal]'] }; }
+
+  function handleAction(action, btn) {
+    var parts = action.split(':');
+    var name = parts[0];
+    var a = parseInt(parts[1], 10);
+    var b = parseInt(parts[2], 10);
+    switch (name) {
+      case 'theme': {
+        var current = root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        var next = current === 'dark' ? 'light' : 'dark';
+        root.dataset.theme = next;
+        try { localStorage.setItem('pavel-theme', next); } catch (e) {}
+        return;
+      }
+      case 'copy-email': {
+        var text = state.email;
+        var done = function () { btn.textContent = 'Zkopírováno'; setTimeout(function () { btn.textContent = 'Kopírovat'; }, 1800); };
+        try {
+          navigator.clipboard.writeText(text).then(done, function () { selectEmail(); });
+        } catch (e) { selectEmail(); }
+        return;
+      }
+      case 'edit': editing = true; render(); setStatus(''); return;
+      case 'cancel':
+        state = clone(saved); editing = false; render(); return;
+      case 'save': save(); return;
+      case 'upload-photo': document.getElementById('photo-input').click(); return;
+      case 'remove-photo': state.photo = ''; break;
+      case 'add-para': state.about.push(''); break;
+      case 'del-para': state.about.splice(a, 1); break;
+      case 'add-fact': state.facts.push({ label: '[Popisek]', value: '[Hodnota]' }); break;
+      case 'del-fact': state.facts.splice(a, 1); break;
+      case 'add-exp': state.experience.unshift(blankJob()); break;
+      case 'del-exp': state.experience.splice(a, 1); break;
+      case 'add-point': state.experience[a].points.push(''); break;
+      case 'del-point': state.experience[a].points.splice(b, 1); break;
+      case 'add-skill': state.skills.push({ emoji: '⭐', title: '[Nová dovednost]', text: '[Jedna věta, co s ní umím.]' }); break;
+      case 'del-skill': state.skills.splice(a, 1); break;
+      case 'add-tag': state.tags.push(''); break;
+      case 'del-tag': state.tags.splice(a, 1); break;
+      default: return;
+    }
+    if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+    render();
+    if (/^add-(para|point|tag)/.test(name)) {
+      var fields = app.querySelectorAll(name === 'add-para' ? '[data-path^="about."]' : name === 'add-tag' ? '[data-path^="tags."]' : '[data-path^="experience.' + a + '.points."]');
+      if (fields.length) placeCaretAtEnd(fields[fields.length - 1]);
+    }
+  }
+
+  function selectEmail() {
+    var el = app.querySelector('.email');
+    if (!el) return;
+    var r = document.createRange();
+    r.selectNodeContents(el);
+    var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+  }
+
+  app.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    e.preventDefault();
+    handleAction(btn.dataset.action, btn);
+  });
+
+  app.addEventListener('input', function (e) {
+    var el = e.target.closest('[data-path]');
+    if (!el || !editing) return;
+    setPath(state, el.dataset.path, el.textContent.replace(/\s+/g, ' ').replace(/^\s/, ''));
+    el.classList.toggle('is-ph', /^\[.*\]$/.test(el.textContent.trim()));
+    refreshSaveButton();
+  });
+
+  app.addEventListener('keydown', function (e) {
+    if (!editing) return;
+    var el = e.target.closest('[data-path]');
+    if (el && e.key === 'Enter') { e.preventDefault(); el.blur(); }
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's') { e.preventDefault(); save(); }
+  });
+
+  app.addEventListener('paste', function (e) {
+    var el = e.target.closest('[data-path]');
+    if (!el || !editing) return;
+    e.preventDefault();
+    var text = (e.clipboardData || window.clipboardData).getData('text/plain').replace(/\s+/g, ' ');
+    if (!document.execCommand('insertText', false, text)) {
+      el.textContent += text;
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+  });
+
+  // V režimu úprav nesmí odkazy kolem textu odvádět jinam.
+  app.addEventListener('click', function (e) {
+    if (editing && e.target.closest('a[href]') && !e.target.closest('[data-action]')) e.preventDefault();
+  }, true);
+
+  /* ---------- Nahrání fotky ---------- */
+  var fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.id = 'photo-input';
+  fileInput.accept = 'image/png,image/jpeg,image/webp,image/gif';
+  fileInput.hidden = true;
+  document.body.appendChild(fileInput);
+  fileInput.addEventListener('change', function () {
+    var file = fileInput.files && fileInput.files[0];
+    fileInput.value = '';
+    if (!file || !assetsApi) return;
+    setStatus('Nahrávám fotku…', true);
+    assetsApi.upload(file).then(function (res) {
+      state.photo = res.id;
+      render();
+      setStatus('Fotka nahraná. Nezapomeň dát Uložit.');
+    }, function (err) {
+      var code = err && err.code;
+      setStatus({
+        too_large: 'Fotka je moc velká, maximum je 20 MB.',
+        unsupported_type: 'Tenhle formát nejde nahrát. Použij JPG, PNG, WebP nebo GIF.',
+        quota_or_state: 'Úložiště stránky je plné.',
+        rate_limited: 'Moc rychle za sebou. Zkus to za chvilku.'
+      }[code] || 'Fotku se nepodařilo nahrát. Zkus to znovu.', true);
+    });
+  });
+
+  /* ---------- Drobné animace ---------- */
+  function onScroll() {
+    var h = app.querySelector('.site-header');
+    if (h) h.classList.toggle('scrolled', window.scrollY > 8);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  app.addEventListener('mouseover', function (e) {
+    if (reduceMotion || editing) return;
+    var host = e.target.closest('.skill-card, .boop');
+    if (!host || host.contains(e.relatedTarget)) return;
+    var el = host.classList.contains('boop') ? host : host.querySelector('.boop');
+    if (!el) return;
+    el.style.transform = 'rotate(' + (Math.random() > 0.5 ? 14 : -14) + 'deg) scale(1.15)';
+    setTimeout(function () { el.style.transform = ''; }, 150);
+  });
+
+  var sparkleColors = ['hsl(50 100% 55%)', 'hsl(333 100% 60%)', 'hsl(245 100% 70%)'];
+  function rand(min, max) { return Math.floor(Math.random() * (max - min)) + min; }
+  function addSparkle() {
+    var host = app.querySelector('.sparkle-wrap');
+    if (!host || editing) return;
+    var size = rand(10, 22);
+    var span = document.createElement('span');
+    span.className = 'sparkle';
+    span.setAttribute('aria-hidden', 'true');
+    span.style.top = rand(-10, 90) + '%';
+    span.style.left = rand(-2, 98) + '%';
+    span.innerHTML = '<svg width="' + size + '" height="' + size + '" viewBox="0 0 68 68"><path d="M26.5 25.5C19.07 33.35 0 34 0 34s19.13 1.7 26.5 9.5C33.53 50.96 34 68 34 68s.37-17.23 7.5-24.5C49.04 35.82 68 34 68 34s-18.97-.53-26.5-8.5C34.4 18 34 0 34 0s-.04 17.86-7.5 25.5Z" fill="' + sparkleColors[rand(0, sparkleColors.length)] + '"/></svg>';
+    host.appendChild(span);
+    setTimeout(function () { span.remove(); }, 850);
+  }
+  if (!reduceMotion) {
+    (function loop() {
+      if (!document.hidden) addSparkle();
+      setTimeout(loop, rand(250, 600));
     })();
-  </script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Přeskočit na obsah</a>
+  }
 
-  <header class="site-header">
-    <div class="wrapper header-inner">
-      <a class="logo" href="#top" aria-label="Pavel Škuthan – domů">
-        <span class="logo-mark">P</span><span class="logo-text">avel Škuthan</span>
-      </a>
-      <nav class="nav" aria-label="Hlavní navigace">
-        <a href="#o-mne">O mně</a>
-        <a href="#zkusenosti">Zkušenosti</a>
-        <a href="#dovednosti">Dovednosti</a>
-        <a href="#kontakt">Kontakt</a>
-      </nav>
-      <button class="theme-toggle boop" type="button" aria-label="Přepnout tmavý režim">
-        <svg class="sun-moon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-          <mask id="moon-mask">
-            <rect x="0" y="0" width="100%" height="100%" fill="white" />
-            <circle class="moon-cut" cx="24" cy="10" r="6" fill="black" />
-          </mask>
-          <circle class="sun-core" cx="12" cy="12" r="5" fill="currentColor" mask="url(#moon-mask)" />
-          <g class="sun-rays" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" />
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-            <line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" />
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-          </g>
-        </svg>
-      </button>
-    </div>
-  </header>
+  render();
 
-  <main id="main">
-    <!-- ============ HERO ============ -->
-    <section class="hero" id="top">
-      <div class="blob blob-1" aria-hidden="true"></div>
-      <div class="blob blob-2" aria-hidden="true"></div>
-      <div class="wrapper hero-inner">
-        <p class="eyebrow reveal">👋 Ahoj, vítej!</p>
-        <h1 class="hero-title reveal">
-          Jsem <span class="sparkle-wrap"><span class="gradient-text">Pavel Škuthan</span></span>
-        </h1>
-        <!-- DOPLNIT: headline z LinkedInu -->
-        <p class="hero-lede reveal">
-          [Pracovní pozice / headline z LinkedInu]. Rád stavím věci, které dávají smysl,
-          a lidi, se kterými se dobře spolupracuje.
-        </p>
-        <div class="hero-actions reveal">
-          <a class="btn-3d" href="#kontakt">
-            <span class="btn-shadow"></span><span class="btn-edge"></span>
-            <span class="btn-front">Napište mi</span>
-          </a>
-          <a class="btn-ghost" href="https://www.linkedin.com/in/pavel-skuthan-391909331/" target="_blank" rel="noopener">
-            LinkedIn profil <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-      </div>
-      <svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M0,64 C240,120 480,0 720,48 C960,96 1200,24 1440,56 L1440,120 L0,120 Z" />
-      </svg>
-    </section>
-
-    <!-- ============ O MNĚ ============ -->
-    <section class="section" id="o-mne">
-      <div class="wrapper about-grid">
-        <div class="about-text reveal">
-          <h2 class="section-title"><span class="title-num">01.</span> O mně</h2>
-          <!-- DOPLNIT: sekce „Info“ z LinkedInu -->
-          <p>
-            [Krátké představení – kdo jsem, čemu se věnuji a co mě baví. Sem patří text ze sekce
-            „Info“ na LinkedInu.]
-          </p>
-          <p>
-            [Druhý odstavec – na čem teď pracuji, jaké problémy rád řeším, případně něco osobního
-            mimo práci.]
-          </p>
-          <aside class="callout">
-            <span class="callout-icon" aria-hidden="true">💡</span>
-            <div>
-              <strong>Zajímavost:</strong> [Jedna zábavná nebo překvapivá věc o mně.]
-            </div>
-          </aside>
-        </div>
-        <div class="about-card reveal">
-          <div class="avatar" aria-hidden="true">
-            <!-- DOPLNIT: nahradit iniciály fotkou: <img src="foto.jpg" alt="Pavel Škuthan"> -->
-            <span>PŠ</span>
-          </div>
-          <dl class="facts">
-            <div><dt>📍 Lokalita</dt><dd>[Město, Česko]</dd></div>
-            <div><dt>💼 Aktuálně</dt><dd>[Pozice @ Firma]</dd></div>
-            <div><dt>🎓 Vzdělání</dt><dd>[Škola / obor]</dd></div>
-            <div><dt>🗣️ Jazyky</dt><dd>Čeština, [Angličtina]</dd></div>
-          </dl>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ ZKUŠENOSTI ============ -->
-    <section class="section section-tinted" id="zkusenosti">
-      <div class="wrapper">
-        <h2 class="section-title reveal"><span class="title-num">02.</span> Zkušenosti</h2>
-        <!-- DOPLNIT: sekce „Praxe“ z LinkedInu – každá pozice jedna <li> -->
-        <ol class="timeline">
-          <li class="timeline-item reveal">
-            <span class="timeline-dot" aria-hidden="true"></span>
-            <article class="card">
-              <header class="card-head">
-                <h3>[Pozice]</h3>
-                <span class="pill">[2023 – současnost]</span>
-              </header>
-              <p class="card-company">[Firma] · [Město]</p>
-              <ul class="card-list">
-                <li>[Co jsem tam dělal / hlavní odpovědnost]</li>
-                <li>[Výsledek nebo úspěch, ideálně s číslem]</li>
-              </ul>
-            </article>
-          </li>
-          <li class="timeline-item reveal">
-            <span class="timeline-dot" aria-hidden="true"></span>
-            <article class="card">
-              <header class="card-head">
-                <h3>[Pozice]</h3>
-                <span class="pill">[2020 – 2023]</span>
-              </header>
-              <p class="card-company">[Firma] · [Město]</p>
-              <ul class="card-list">
-                <li>[Co jsem tam dělal / hlavní odpovědnost]</li>
-                <li>[Výsledek nebo úspěch]</li>
-              </ul>
-            </article>
-          </li>
-          <li class="timeline-item reveal">
-            <span class="timeline-dot" aria-hidden="true"></span>
-            <article class="card">
-              <header class="card-head">
-                <h3>[Studium / první pozice]</h3>
-                <span class="pill">[2016 – 2020]</span>
-              </header>
-              <p class="card-company">[Škola nebo firma]</p>
-              <ul class="card-list">
-                <li>[Zaměření, diplomka, projekt…]</li>
-              </ul>
-            </article>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- ============ DOVEDNOSTI ============ -->
-    <section class="section" id="dovednosti">
-      <div class="wrapper">
-        <h2 class="section-title reveal"><span class="title-num">03.</span> Dovednosti</h2>
-        <p class="section-lede reveal">Věci, ve kterých se cítím jako doma. <em>(Najeď na ně myší.)</em></p>
-        <!-- DOPLNIT: sekce „Dovednosti“ z LinkedInu -->
-        <div class="skills-grid">
-          <div class="skill-card reveal"><span class="skill-emoji boop" aria-hidden="true">🚀</span><h3>[Dovednost 1]</h3><p>[Jedna věta, co s ní umím.]</p></div>
-          <div class="skill-card reveal"><span class="skill-emoji boop" aria-hidden="true">🧠</span><h3>[Dovednost 2]</h3><p>[Jedna věta, co s ní umím.]</p></div>
-          <div class="skill-card reveal"><span class="skill-emoji boop" aria-hidden="true">🤝</span><h3>[Dovednost 3]</h3><p>[Jedna věta, co s ní umím.]</p></div>
-          <div class="skill-card reveal"><span class="skill-emoji boop" aria-hidden="true">📊</span><h3>[Dovednost 4]</h3><p>[Jedna věta, co s ní umím.]</p></div>
-          <div class="skill-card reveal"><span class="skill-emoji boop" aria-hidden="true">🛠️</span><h3>[Dovednost 5]</h3><p>[Jedna věta, co s ní umím.]</p></div>
-          <div class="skill-card reveal"><span class="skill-emoji boop" aria-hidden="true">✨</span><h3>[Dovednost 6]</h3><p>[Jedna věta, co s ní umím.]</p></div>
-        </div>
-        <ul class="tag-cloud reveal" aria-label="Další dovednosti">
-          <li>[Nástroj]</li><li>[Technologie]</li><li>[Metodika]</li><li>[Software]</li><li>[Soft skill]</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ============ KONTAKT ============ -->
-    <section class="section contact" id="kontakt">
-      <div class="wrapper contact-inner reveal">
-        <h2 class="section-title"><span class="title-num">04.</span> Pojďme si napsat</h2>
-        <p class="section-lede">
-          Ať už máte nabídku, nápad na spolupráci, nebo se chcete jen pozdravit – ozvěte se.
-        </p>
-        <div class="contact-actions">
-          <!-- DOPLNIT: e-mail -->
-          <a class="btn-3d" href="mailto:[email@domena.cz]">
-            <span class="btn-shadow"></span><span class="btn-edge"></span>
-            <span class="btn-front">✉️ Poslat e-mail</span>
-          </a>
-          <a class="social boop" href="https://www.linkedin.com/in/pavel-skuthan-391909331/" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
-          </a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="wrapper footer-inner">
-      <p>© <span id="year">2026</span> Pavel Škuthan</p>
-      <p class="footer-note">Vyrobeno s <span class="heart boop" aria-label="láskou">❤️</span> a trochou CSS kouzel</p>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+  /* ---------- Zapnutí úprav, pokud to prohlížeč (claude.ai) dovolí ---------- */
+  if (window.claude && typeof window.claude.use === 'function') {
+    window.claude.use('artifact').then(function (api) {
+      if (!api) return null;
+      return window.claude.use('user').then(function (user) {
+        if (!user || typeof user.canEdit !== 'function') return true;
+        return Promise.resolve(user.canEdit()).catch(function () { return true; });
+      }).then(function (canEdit) {
+        if (canEdit === false) return null;
+        artifactApi = api;
+        return window.claude.use('assets');
+      });
+    }).then(function (assets) {
+      if (assets) assetsApi = assets;
+      if (!artifactApi) return;
+      var draft = null;
+      try { draft = JSON.parse(sessionStorage.getItem('pavel-draft') || 'null'); } catch (e) {}
+      if (draft && JSON.stringify(draft) !== JSON.stringify(saved)) {
+        state = draft;
+        editing = true;
+        render();
+        setStatus('Obnovil jsem tvoje neuložené změny. Zkontroluj je a dej Uložit.', true);
+      } else {
+        try { sessionStorage.removeItem('pavel-draft'); } catch (e) {}
+        render();
+      }
+    }).catch(function () {});
+  }
+})();
+</script>
