@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pavel Škuthan</title>
+  <meta name="description" content="Osobní web Pavla Škuthana – zkušenosti, dovednosti a kontakt." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    // Nastaví téma ještě před vykreslením, aby stránka neblikla.
+    (function () {
+      document.documentElement.classList.add('js');
+      try {
+        var saved = localStorage.getItem('theme');
+        var dark = saved ? saved === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (e) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Přeskočit na obsah</a>
+
+  <header class="site-header">
+    <div class="wrapper header-inner">
+      <a class="logo" href="#top" aria-label="Pavel Škuthan – domů">
+        <span class="logo-mark">P</span><span class="logo-text">avel Škuthan</span>
+      </a>
+      <nav class="nav" aria-label="Hlavní navigace">
+        <a href="#o-mne">O mně</a>
+        <a href="#zkusenosti">Zkušenosti</a>
+        <a href="#dovednosti">Dovednosti</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <button class="theme-toggle boop" type="button" aria-label="Přepnout tmavý režim">
+        <svg class="sun-moon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+          <mask id="moon-mask">
+            <rect x="0" y="0" width="100%" height="100%" fill="white" />
+            <circle class="moon-cut" cx="24" cy="10" r="6" fill="black" />
+          </mask>
+          <circle class="sun-core" cx="12" cy="12" r="5" fill="currentColor" mask="url(#moon-mask)" />
+          <g class="sun-rays" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </g>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top">
+      <div class="blob blob-1" aria-hidden="true"></div>
+      <div class="blob blob-2" aria-hidden="true"></div>
+      <div class="wrapper hero-inner">
+        <p class="eyebrow reveal">👋 Ahoj, vítej!</p>
+        <h1 class="hero-title reveal">
+          Jsem <span class="sparkle-wrap"><span class="gradient-text">Pavel Škuthan</span></span>
+        </h1>
+        <!-- DOPLNIT: headline z LinkedInu -->
+        <p class="hero-lede reveal">
+          [Pracovní pozice / headline z LinkedInu]. Rád stavím věci, které dávají smysl,
+          a lidi, se kterými se dobře spolupracuje.
+        </p>
+        <div class="hero-actions reveal">
+          <a class="btn-3d" href="#kontakt">
+            <span class="btn-shadow"></span><span class="btn-edge"></span>
+            <span class="btn-front">Napište mi</span>
+          </a>
+          <a class="btn-ghost" href="https://www.linkedin.com/in/pavel-skuthan-391909331/" target="_blank" rel="noopener">
+            LinkedIn profil <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+      <svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,64 C240,120 480,0 720,48 C960,96 1200,24 1440,56 L1440,120 L0,120 Z" />
+      </svg>
+    </section>
+
+    <!-- ============ O MNĚ ============ -->
+    <section class="section" id="o-mne">
+      <div class="wrapper about-grid">
+        <div class="about-text reveal">
+          <h2 class="section-title"><span class="title-num">01.</span> O mně</h2>
+          <!-- DOPLNIT: sekce „Info“ z LinkedInu -->
+          <p>
+            [Krátké představení – kdo jsem, čemu se věnuji a co mě baví. Sem patří text ze sekce
+            „Info“ na LinkedInu.]
+          </p>
+          <p>
+            [Druhý odstavec – na čem teď pracuji, jaké problémy rád řeším, případně něco osobního
+            mimo práci.]
+          </p>
+          <aside class="callout">
+            <span class="callout-icon" aria-hidden="true">💡</span>
+            <div>
+              <strong>Zajímavost:</strong> [Jedna zábavná nebo překvapivá věc o mně.]
+            </div>
+          </aside>
+        </div>
+        <div class="about-card reveal">
+          <div class="avatar" aria-hidden="true">
+            <!-- DOPLNIT: nahradit iniciály fotkou: <img src="foto.jpg" alt="Pavel Škuthan"> -->
+            <span>PŠ</span>
+          </div>
+          <dl class="facts">
+            <div><dt>📍 Lokalita</dt><dd>[Město, Česko]</dd></div>
+            <div><dt>💼 Aktuálně</dt><dd>[Pozice @ Firma]</dd></div>
+            <div><dt>🎓 Vzdělání</dt><dd>[Škola / obor]</dd></div>
+            <div><dt>🗣️ Jazyky</dt><dd>Čeština, [Angličtina]</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ZKUŠENOSTI ============ -->
+    <section class="section section-tinted" id="zkusenosti">
+      <div class="wrapper">
+        <h2 class="section-title reveal"><span class="title-num">02.</span> Zkušenosti</h2>
+        <!-- DOPLNIT: sekce „Praxe“ z LinkedInu – každá pozice jedna <li> -->
+        <ol class="timeline">
+          <li class="timeline-item reveal">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <article class="card">
+              <header class="card-head">
+                <h3>[Pozice]</h3>
+                <span class="pill">[2023 – současnost]</span>
+              </header>
+              <p class="card-company">[Firma] · [Město]</p>
+              <ul class="card-list">
+                <li>[Co jsem tam dělal / hlavní odpovědnost]</li>
+                <li>[Výsledek nebo úspěch, ideálně s číslem]</li>
+              </ul>
+            </article>
+          </li>
+          <li class="timeline-item reveal">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <article class="card">
+              <header class="card-head">
+                <h3>[Pozice]</h3>
+                <span class="pill">[2020 – 2023]</span>
+              </header>
+              <p class="card-company">[Firma] · [Město]</p>
+              <ul class="card-list">
+                <li>[Co jsem tam dělal / hlavní odpovědnost]</li>
+                <li>[Výsledek nebo úspěch]</li>
+              </ul>
+            </article>
+          </li>
+          <li class="timeline-item reveal">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <article class="card">
+              <header class="card-head">
+                <h3>[Studium / první pozice]</h3>
+                <span class="pill">[2016 – 2020]</span>
+              </header>
+              <p class="card-company">[Škola nebo firma]</p>
+              <ul class="card-list">
+                <li>[Zaměření, diplomka, projekt…]</li>
+              </ul>
+            </article>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ DOVEDNOSTI ============ -->
+    <section class="section" id="dovednosti">
+      <div class="wrapper">
+        <h2 class="section-title reveal"><span class="title-num">03.</span> Dovednosti</h2>
+        <p class="section-lede reveal">Věci, ve kterých se cítím jako doma. <em>(Najeď na ně myší.)</em></p>
+        <!-- DOPLNIT: sekce „Dovednosti“ z LinkedInu -->
+        <div class="skills-grid">
+          <div class="skill-card reveal"><span class="skill-emoji boop" aria-hidden="true">🚀</span><h3>[Dovednost 1]</h3><p>[Jedna věta, co s ní umím.]</p></div>
+          <div class="skill-card reveal"><span class="skill-emoji boop" aria-hidden="true">🧠</span><h3>[Dovednost 2]</h3><p>[Jedna věta, co s ní umím.]</p></div>
+          <div class="skill-card reveal"><span class="skill-emoji boop" aria-hidden="true">🤝</span><h3>[Dovednost 3]</h3><p>[Jedna věta, co s ní umím.]</p></div>
+          <div class="skill-card reveal"><span class="skill-emoji boop" aria-hidden="true">📊</span><h3>[Dovednost 4]</h3><p>[Jedna věta, co s ní umím.]</p></div>
+          <div class="skill-card reveal"><span class="skill-emoji boop" aria-hidden="true">🛠️</span><h3>[Dovednost 5]</h3><p>[Jedna věta, co s ní umím.]</p></div>
+          <div class="skill-card reveal"><span class="skill-emoji boop" aria-hidden="true">✨</span><h3>[Dovednost 6]</h3><p>[Jedna věta, co s ní umím.]</p></div>
+        </div>
+        <ul class="tag-cloud reveal" aria-label="Další dovednosti">
+          <li>[Nástroj]</li><li>[Technologie]</li><li>[Metodika]</li><li>[Software]</li><li>[Soft skill]</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ KONTAKT ============ -->
+    <section class="section contact" id="kontakt">
+      <div class="wrapper contact-inner reveal">
+        <h2 class="section-title"><span class="title-num">04.</span> Pojďme si napsat</h2>
+        <p class="section-lede">
+          Ať už máte nabídku, nápad na spolupráci, nebo se chcete jen pozdravit – ozvěte se.
+        </p>
+        <div class="contact-actions">
+          <!-- DOPLNIT: e-mail -->
+          <a class="btn-3d" href="mailto:[email@domena.cz]">
+            <span class="btn-shadow"></span><span class="btn-edge"></span>
+            <span class="btn-front">✉️ Poslat e-mail</span>
+          </a>
+          <a class="social boop" href="https://www.linkedin.com/in/pavel-skuthan-391909331/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrapper footer-inner">
+      <p>© <span id="year">2026</span> Pavel Škuthan</p>
+      <p class="footer-note">Vyrobeno s <span class="heart boop" aria-label="láskou">❤️</span> a trochou CSS kouzel</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
