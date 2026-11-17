@@ -25,6 +25,12 @@
   --sand-fg: hsl(200 25% 10%);
   --sand-muted: hsl(30 12% 32%);
   --sand-green: hsl(100 42% 24%);
+  /* Zelený pás (barva rámečku z fotky) taky v obou režimech stejný. */
+  --forest: hsl(100 30% 16%);
+  --forest-fg: hsl(40 35% 92%);
+  --forest-muted: hsl(90 14% 72%);
+  --forest-accent: hsl(39 70% 74%);
+  --forest-line: hsl(40 35% 92% / 0.16);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -128,11 +134,11 @@ button { font: inherit; }
 .hero-name {
   font-size: clamp(3.4rem, 13vw, 7.6rem);
   font-weight: 800;
-  line-height: 0.88;
+  line-height: 0.95;
   letter-spacing: -0.05em;
-  margin-top: -4px;
 }
 .hero-name span { display: block; }
+.hero-name .last { margin-top: 0.14em; }
 .hero-name .last { color: var(--sand-green); }
 .hero-lede { font-size: clamp(1.1rem, 2vw, 1.3rem); line-height: 1.5; color: var(--sand-muted); max-width: 30em; }
 .hero-links { display: flex; flex-wrap: wrap; gap: 12px 32px; font-size: 1.05rem; }
@@ -163,68 +169,104 @@ button { font: inherit; }
   .hero-body { margin-block: auto; padding-block: 48px 96px; }
 }
 
-/* ---------- Sekce životopisu ---------- */
-.cv { padding-block: 40px 24px; }
-.row { display: grid; gap: 16px 48px; padding-block: 56px; border-top: 1px solid var(--line); }
-.row:first-child { border-top: none; }
-@media (min-width: 860px) { .row { grid-template-columns: 220px minmax(0, 1fr); } }
-.row-label { font-size: 1.05rem; font-weight: 600; color: var(--muted); letter-spacing: -0.005em; }
-.row-body { min-width: 0; max-width: 46rem; display: flex; flex-direction: column; gap: 1.1em; }
+/* ---------- Sekce: střídají se barevné pásy z fotky ---------- */
+.band { padding-block: 88px; }
+@media (min-width: 860px) { .band { padding-block: 128px; } }
+.band-head { display: grid; gap: 20px 48px; margin-bottom: 48px; }
+@media (min-width: 860px) { .band-head { grid-template-columns: minmax(0, 1fr) minmax(0, 24rem); align-items: end; margin-bottom: 72px; } }
+.big-title {
+  font-size: clamp(3rem, 10vw, 7rem);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+}
+.band-intro { font-size: 1.15rem; line-height: 1.55; color: var(--muted); }
 
-.about-lead { font-size: 1.3rem; line-height: 1.5; font-weight: 500; letter-spacing: -0.01em; }
+/* O mně */
+.about-grid { display: grid; gap: 48px 72px; }
+@media (min-width: 900px) { .about-grid { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); } }
+.about-text { min-width: 0; display: flex; flex-direction: column; gap: 1.1em; }
 .para { display: flex; gap: 8px; align-items: flex-start; }
-.fun { color: var(--muted); }
-.fun strong { color: var(--fg); font-weight: 600; }
-.facts { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px 32px; margin-top: 12px; }
-@media (min-width: 560px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.fact { display: flex; flex-direction: column; position: relative; }
-.fact dt { font-size: 0.88rem; color: var(--muted); }
-.fact dd { font-weight: 600; }
+.about-lead { font-size: clamp(1.45rem, 3vw, 2.1rem); line-height: 1.28; font-weight: 600; letter-spacing: -0.025em; }
+.about-p { font-size: 1.12rem; color: var(--muted); max-width: 40em; }
+.fun {
+  margin-top: 16px;
+  background: var(--sand);
+  color: var(--sand-fg);
+  padding: 24px 28px;
+  font-size: 1.1rem;
+}
+.fun strong { display: block; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--sand-green); margin-bottom: 4px; }
+.facts { display: grid; gap: 0; align-content: start; }
+.fact { position: relative; display: flex; flex-direction: column; padding-block: 18px; border-top: 1px solid var(--line); }
+.fact:first-child { border-top: 3px solid var(--green); }
+.fact dt { font-size: 0.9rem; color: var(--muted); }
+.fact dd { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.25; }
 body.editing .fact { flex-direction: row; flex-wrap: wrap; gap: 8px; align-items: baseline; }
 
-.jobs { list-style: none; padding: 0; display: grid; gap: 40px; }
-.job { position: relative; display: grid; gap: 4px; }
-.job-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 24px; }
-.job-role { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.015em; }
-.job-dates { color: var(--muted); font-size: 0.95rem; font-variant-numeric: tabular-nums; }
-.job-company { color: var(--muted); }
-.job-points { list-style: none; padding: 0; margin-top: 8px; display: grid; gap: 4px; }
-.job-points li { position: relative; padding-left: 20px; display: flex; gap: 8px; align-items: baseline; }
-.job-points li::before { content: '–'; position: absolute; left: 0; color: var(--muted); }
-
-.skills { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px 40px; }
-@media (min-width: 640px) { .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.skill { position: relative; display: grid; gap: 2px; }
-.skill h3 { font-size: 1.1rem; font-weight: 700; }
-.skill p { color: var(--muted); }
-.also { color: var(--muted); }
-.also-label { color: var(--fg); font-weight: 600; margin-right: 6px; }
-.tags { display: inline; list-style: none; padding: 0; }
-.tags li { display: inline; }
-.tags li:not(:last-of-type)::after { content: ', '; }
-body.editing .tags li::after { content: none; }
-body.editing .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
-body.editing .tags li { display: inline-flex; gap: 6px; align-items: center; }
-
-.contact-lede { color: var(--muted); }
-.email-big {
-  font-size: clamp(1.5rem, 4.5vw, 2.4rem);
+/* Zkušenosti: zelený pás */
+.band-forest { background: var(--forest); color: var(--forest-fg); }
+.jobs { list-style: none; padding: 0; display: grid; }
+.job { position: relative; display: grid; gap: 8px 48px; padding-block: 36px; border-top: 1px solid var(--forest-line); }
+.job:last-child { border-bottom: 1px solid var(--forest-line); }
+@media (min-width: 760px) { .job { grid-template-columns: 260px minmax(0, 1fr); } }
+.job-dates {
+  font-size: clamp(1.25rem, 2.4vw, 1.7rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.2;
+  color: var(--forest-accent);
+  font-variant-numeric: tabular-nums;
+}
+.job-main { min-width: 0; display: grid; gap: 4px; }
+.job-role { font-size: clamp(1.4rem, 2.6vw, 1.9rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; }
+.job-company { color: var(--forest-muted); font-size: 1.05rem; }
+.job-points { list-style: none; padding: 0; margin-top: 12px; display: grid; gap: 6px; }
+.job-points li { position: relative; padding-left: 22px; display: flex; gap: 8px; align-items: baseline; }
+.job-points li::before { content: '–'; position: absolute; left: 0; color: var(--forest-accent); }
+.band-forest .add-btn { color: var(--forest-fg); }
+
+/* Dovednosti */
+.skills { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px 48px; }
+@media (min-width: 640px) { .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.skill { position: relative; display: grid; align-content: start; gap: 6px; padding-top: 20px; border-top: 3px solid var(--green); }
+.skill h3 { font-size: clamp(1.35rem, 2.4vw, 1.75rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; }
+.skill p { color: var(--muted); font-size: 1.05rem; }
+.also { margin-top: 56px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; }
+.also-label { color: var(--muted); font-size: 0.95rem; }
+.tags { display: inline; list-style: none; padding: 0; font-size: clamp(1.25rem, 2.6vw, 1.8rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.4; }
+.tags li { display: inline; }
+.tags li:not(:last-of-type)::after { content: ' / '; color: var(--green); font-weight: 400; }
+body.editing .tags li::after { content: none; }
+body.editing .tags { display: flex; flex-wrap: wrap; gap: 10px; }
+body.editing .tags li { display: inline-flex; gap: 6px; align-items: center; }
+
+/* Kontakt: pískový pás */
+.band-sand { background: var(--sand); color: var(--sand-fg); }
+.band-sand .band-intro { color: var(--sand-muted); }
+.band-sand .big-title .accent { color: var(--sand-green); }
+.email-big {
+  font-size: clamp(1.9rem, 6.5vw, 4.6rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1.1;
   overflow-wrap: anywhere;
 }
-.contact-links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 28px; }
+.email-big .link { text-decoration-thickness: 4px; text-underline-offset: 10px; text-decoration-color: var(--sand-green); }
+.email-big .link:hover { color: var(--sand-green); }
+.contact-links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 32px; margin-top: 32px; font-size: 1.05rem; }
+.band-sand .link { text-decoration-color: var(--sand-green); }
 .text-btn {
   border: none; background: none; padding: 0;
-  color: var(--muted);
+  color: var(--sand-muted);
   text-decoration: underline; text-underline-offset: 4px;
   cursor: pointer;
 }
-.text-btn:hover { color: var(--fg); }
+.text-btn:hover { color: var(--sand-fg); }
 
-.site-footer { padding-block: 0 48px; color: var(--muted); font-size: 0.92rem; }
-.footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; border-top: 1px solid var(--line); padding-top: 24px; }
+.site-footer { background: var(--forest); color: var(--forest-muted); font-size: 0.92rem; }
+.footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding-block: 28px; }
+.site-footer .link { text-decoration-color: var(--forest-accent); font-weight: 500; }
 
 /* ---------- Režim úprav ---------- */
 .editbar {
@@ -374,8 +416,10 @@ body.editing .job, body.editing .skill { padding-right: 40px; }
   function add(action, label) {
     return '<button type="button" class="add-btn edit-only" data-action="' + action + '">+ ' + esc(label) + '</button>';
   }
-  function row(id, label, body) {
-    return '<section class="row" id="' + id + '"><h2 class="row-label">' + label + '</h2><div class="row-body">' + body + '</div></section>';
+  function band(id, cls, title, intro, body) {
+    return '<section class="band ' + cls + '" id="' + id + '"><div class="wrapper">' +
+      '<div class="band-head"><h2 class="big-title">' + title + '</h2>' + (intro || '') + '</div>' +
+      body + '</div></section>';
   }
 
   function render() {
@@ -414,61 +458,64 @@ body.editing .job, body.editing .skill { padding-right: 40px; }
           '</span>' : '') +
       '</header>';
 
-    html += '<main id="main" class="wrapper cv">';
+    html += '<main id="main">';
 
     // O mně
-    html += row('o-mne', 'O mně',
-      s.about.map(function (_, i) {
-        return '<div class="para">' + f('p', 'about.' + i, i === 0 ? 'about-lead' : '', 'Odstavec textu') + (s.about.length > 1 ? del('del-para:' + i, 'Smazat odstavec') : '') + '</div>';
-      }).join('') +
-      '<div class="row-actions">' + add('add-para', 'Přidat odstavec') + '</div>' +
-      '<p class="fun"><strong>Zajímavost: </strong>' + f('span', 'fun', '', 'Něco zajímavého o mně') + '</p>' +
-      '<dl class="facts">' +
+    html += band('o-mne', '', 'O mně', '',
+      '<div class="about-grid"><div class="about-text">' +
+        s.about.map(function (_, i) {
+          return '<div class="para">' + f('p', 'about.' + i, i === 0 ? 'about-lead' : 'about-p', 'Odstavec textu') + (s.about.length > 1 ? del('del-para:' + i, 'Smazat odstavec') : '') + '</div>';
+        }).join('') +
+        '<div class="row-actions">' + add('add-para', 'Přidat odstavec') + '</div>' +
+        '<p class="fun"><strong>Zajímavost</strong>' + f('span', 'fun', '', 'Něco zajímavého o mně') + '</p>' +
+      '</div>' +
+      '<div><dl class="facts">' +
         s.facts.map(function (_, i) {
           return '<div class="fact">' + f('dt', 'facts.' + i + '.label', '', 'Popisek') + f('dd', 'facts.' + i + '.value', '', 'Hodnota') + del('del-fact:' + i, 'Smazat údaj') + '</div>';
         }).join('') +
-      '</dl>' +
-      '<div class="row-actions">' + add('add-fact', 'Přidat údaj') + '</div>'
+      '</dl><div class="row-actions">' + add('add-fact', 'Přidat údaj') + '</div></div>' +
+      '</div>'
     );
 
     // Zkušenosti
-    html += row('zkusenosti', 'Zkušenosti',
+    html += band('zkusenosti', 'band-forest', 'Zkušenosti', '',
       '<ol class="jobs">' +
         s.experience.map(function (job, i) {
           var p = 'experience.' + i;
           return '<li class="job">' + del('del-exp:' + i, 'Smazat celou pozici') +
-            '<div class="job-head">' + f('h3', p + '.role', 'job-role', 'Pozice') + f('span', p + '.dates', 'job-dates', 'Od – do') + '</div>' +
-            f('p', p + '.company', 'job-company', 'Firma, město') +
-            '<ul class="job-points">' +
-              job.points.map(function (_, j) {
-                return '<li>' + f('span', p + '.points.' + j, '', 'Co jsem dělal') + del('del-point:' + i + ':' + j, 'Smazat bod') + '</li>';
-              }).join('') +
-            '</ul>' +
-            '<div class="row-actions" style="margin-top:8px">' + add('add-point:' + i, 'Přidat bod') + '</div>' +
+            f('p', p + '.dates', 'job-dates', 'Od – do') +
+            '<div class="job-main">' +
+              f('h3', p + '.role', 'job-role', 'Pozice') +
+              f('p', p + '.company', 'job-company', 'Firma, město') +
+              '<ul class="job-points">' +
+                job.points.map(function (_, j) {
+                  return '<li>' + f('span', p + '.points.' + j, '', 'Co jsem dělal') + del('del-point:' + i + ':' + j, 'Smazat bod') + '</li>';
+                }).join('') +
+              '</ul>' +
+              '<div class="row-actions" style="margin-top:8px">' + add('add-point:' + i, 'Přidat bod') + '</div>' +
+            '</div>' +
           '</li>';
         }).join('') +
       '</ol>' +
-      '<div class="row-actions">' + add('add-exp', 'Přidat pozici') + '</div>'
+      '<div class="row-actions" style="margin-top:24px">' + add('add-exp', 'Přidat pozici') + '</div>'
     );
 
     // Dovednosti
-    html += row('dovednosti', 'Dovednosti',
+    html += band('dovednosti', '', 'Co umím', '',
       '<div class="skills">' +
         s.skills.map(function (_, i) {
           var p = 'skills.' + i;
           return '<div class="skill">' + del('del-skill:' + i, 'Smazat dovednost') + f('h3', p + '.title', '', 'Název') + f('p', p + '.text', '', 'Popis') + '</div>';
         }).join('') +
       '</div>' +
-      '<div class="row-actions">' + add('add-skill', 'Přidat dovednost') + '</div>' +
-      '<div class="also"><span class="also-label">Dále:</span><ul class="tags" aria-label="Další dovednosti">' +
+      '<div class="row-actions" style="margin-top:24px">' + add('add-skill', 'Přidat dovednost') + '</div>' +
+      '<div class="also"><span class="also-label">Dále</span><ul class="tags" aria-label="Další dovednosti">' +
         s.tags.map(function (_, i) { return '<li>' + f('span', 'tags.' + i, '', 'Tag') + del('del-tag:' + i, 'Smazat') + '</li>'; }).join('') +
-      '</ul></div>' +
-      '<div class="row-actions">' + add('add-tag', 'Přidat další') + '</div>'
+      '</ul>' + add('add-tag', 'Přidat další') + '</div>'
     );
 
     // Kontakt
-    html += row('kontakt', 'Kontakt',
-      f('p', 'contactLede', 'contact-lede', 'Výzva ke kontaktu') +
+    html += band('kontakt', 'band-sand', 'Napište mi<span class="accent">.</span>', f('p', 'contactLede', 'band-intro', 'Výzva ke kontaktu'),
       '<p class="email-big">' + (editing ? f('span', 'email', 'email', 'tvuj@email.cz') : '<a class="link email" href="mailto:' + esc(s.email) + '">' + esc(s.email) + '</a>') + '</p>' +
       '<p class="contact-links"><button type="button" class="text-btn" data-action="copy-email">Zkopírovat e-mail</button><a class="link" href="' + esc(s.linkedin) + '" target="_blank" rel="noopener">LinkedIn ↗</a></p>'
     );
@@ -476,10 +523,10 @@ body.editing .job, body.editing .skill { padding-right: 40px; }
     html += '</main>';
 
     html +=
-      '<footer class="site-footer"><div class="wrapper"><div class="footer-inner">' +
+      '<footer class="site-footer"><div class="wrapper footer-inner">' +
         '<p>© ' + new Date().getFullYear() + ' ' + esc(s.name) + '</p>' +
-        '<a class="link" style="font-weight:500" href="#top">Zpět nahoru</a>' +
-      '</div></div></footer>';
+        '<a class="link" href="#top">Zpět nahoru</a>' +
+      '</div></footer>';
 
     if (artifactApi) {
       html += '<div class="editbar" aria-live="polite">' +
