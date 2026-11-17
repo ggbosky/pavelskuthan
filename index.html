@@ -31,6 +31,7 @@
   --forest-muted: hsl(90 14% 72%);
   --forest-accent: hsl(39 70% 74%);
   --forest-line: hsl(40 35% 92% / 0.16);
+  --sand-line: hsl(30 25% 25% / 0.2);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -103,6 +104,7 @@ button { font: inherit; }
 
 /* ---------- Úvod ---------- */
 .hero {
+  --grain: 0.2;
   position: relative;
   background: var(--sand);
   color: var(--sand-fg);
@@ -132,7 +134,7 @@ button { font: inherit; }
 .hero-body { position: relative; z-index: 2; padding-block: 0 64px; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; max-width: 560px; }
 .hero-kicker { font-weight: 600; color: var(--sand-green); font-size: 1rem; }
 .hero-name {
-  font-size: clamp(3.4rem, 13vw, 7.6rem);
+  font-size: clamp(3.6rem, 13vw, 8.6rem);
   font-weight: 800;
   line-height: 0.95;
   letter-spacing: -0.05em;
@@ -140,8 +142,15 @@ button { font: inherit; }
 .hero-name span { display: block; }
 .hero-name .last { margin-top: 0.14em; }
 .hero-name .last { color: var(--sand-green); }
-.hero-lede { font-size: clamp(1.1rem, 2vw, 1.3rem); line-height: 1.5; color: var(--sand-muted); max-width: 30em; }
-.hero-links { display: flex; flex-wrap: wrap; gap: 12px 32px; font-size: 1.05rem; }
+.hero-lede { font-size: clamp(1.1rem, 2vw, 1.3rem); line-height: 1.5; color: var(--sand-muted); max-width: 26em; }
+.hero-links { display: flex; flex-wrap: wrap; gap: 12px 32px; font-size: 1.1rem; }
+.hero-facts-wrap { position: relative; z-index: 3; background: var(--sand); border-top: 1px solid var(--sand-line); }
+.hero-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 32px; padding-block: 24px 28px; }
+@media (min-width: 760px) { .hero-facts { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.hero-fact { position: relative; display: flex; flex-direction: column; min-width: 0; }
+.hero-fact dt { font-size: 0.85rem; color: var(--sand-muted); }
+.hero-fact dd { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.015em; line-height: 1.3; overflow-wrap: anywhere; }
+body.editing .hero-fact { flex-direction: row; flex-wrap: wrap; gap: 6px; align-items: baseline; }
 .hero .link { text-decoration-color: var(--sand-green); }
 .hero .link:hover { color: var(--sand-green); }
 
@@ -152,12 +161,12 @@ button { font: inherit; }
   }
 }
 @media (min-width: 900px) {
-  .hero-inner { min-height: 620px; display: flex; flex-direction: column; }
+  .hero-inner { min-height: 640px; display: flex; flex-direction: column; }
   .hero-photo {
     position: absolute;
     top: 0; right: 0; bottom: 0;
     height: auto;
-    width: min(54vw, 640px);
+    width: min(50vw, 680px);
     margin: 0;
     z-index: 0;
   }
@@ -166,107 +175,153 @@ button { font: inherit; }
     -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 34%);
     mask-image: linear-gradient(to right, transparent 0%, #000 34%);
   }
-  .hero-body { margin-block: auto; padding-block: 48px 96px; }
+  .hero-body { margin-block: auto; padding-block: 40px 80px; max-width: 640px; }
 }
 
-/* ---------- Sekce: střídají se barevné pásy z fotky ---------- */
-.band { padding-block: 88px; }
+/* ---------- Zrnitá textura (barevné pásy a fotka) ---------- */
+.grain { position: relative; isolation: isolate; }
+.grain::after {
+  content: '';
+  position: absolute; inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: var(--grain, 0.22);
+  mix-blend-mode: multiply;
+}
+.grain > * { position: relative; z-index: 2; }
+/* V úvodu se fotka musí ukotvit k celému pásu, ne k vnitřnímu sloupci. */
+.hero.grain > .hero-inner { position: static; z-index: auto; }
+
+/* ---------- Sekce: každý pás si nastaví vlastní barvy ---------- */
+.band {
+  --b-fg: var(--fg); --b-muted: var(--muted); --b-accent: var(--green); --b-line: var(--line);
+  color: var(--b-fg);
+  padding-block: 88px;
+}
 @media (min-width: 860px) { .band { padding-block: 128px; } }
-.band-head { display: grid; gap: 20px 48px; margin-bottom: 48px; }
-@media (min-width: 860px) { .band-head { grid-template-columns: minmax(0, 1fr) minmax(0, 24rem); align-items: end; margin-bottom: 72px; } }
+.band-forest {
+  --b-fg: var(--forest-fg); --b-muted: var(--forest-muted); --b-accent: var(--forest-accent); --b-line: var(--forest-line);
+  --grain: 0.5;
+  background: var(--forest);
+}
+.band-sand {
+  --b-fg: var(--sand-fg); --b-muted: var(--sand-muted); --b-accent: var(--sand-green); --b-line: var(--sand-line);
+  --grain: 0.2;
+  background: var(--sand);
+}
+.band .link { text-decoration-color: var(--b-accent); }
+.band .link:hover { color: var(--b-accent); }
+.band-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px 32px; margin-bottom: 48px; }
+@media (min-width: 860px) { .band-head { margin-bottom: 72px; } }
 .big-title {
-  font-size: clamp(3rem, 10vw, 7rem);
+  font-size: clamp(3rem, 10vw, 7.5rem);
   font-weight: 800;
   line-height: 0.92;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.055em;
 }
-.band-intro { font-size: 1.15rem; line-height: 1.55; color: var(--muted); }
+.big-title .accent { color: var(--b-accent); }
+.band-note { color: var(--b-muted); font-size: 1rem; }
+.band-intro { font-size: 1.15rem; line-height: 1.55; color: var(--b-muted); max-width: 26rem; }
+
+/* Co hledám */
+.seek-headline {
+  font-size: clamp(1.9rem, 5vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  max-width: 18em;
+}
+.seek-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 40px; margin-top: 56px; }
+@media (min-width: 760px) { .seek-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.seek-item { position: relative; display: flex; flex-direction: column; gap: 6px; padding-block: 20px; border-top: 1px solid var(--b-line); }
+.seek-item dt { font-size: 0.95rem; color: var(--b-muted); }
+.seek-item dd { font-size: clamp(1.3rem, 2.4vw, 1.75rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; color: var(--b-accent); }
+body.editing .seek-item { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+.seek-cta { margin-top: 40px; font-size: 1.15rem; }
 
 /* O mně */
-.about-grid { display: grid; gap: 48px 72px; }
-@media (min-width: 900px) { .about-grid { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); } }
+.about-lead {
+  font-size: clamp(1.6rem, 3.6vw, 2.6rem);
+  line-height: 1.22;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  max-width: 22em;
+}
+.about-grid { display: grid; gap: 40px 72px; margin-top: 48px; }
+@media (min-width: 900px) { .about-grid { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: start; } }
 .about-text { min-width: 0; display: flex; flex-direction: column; gap: 1.1em; }
 .para { display: flex; gap: 8px; align-items: flex-start; }
-.about-lead { font-size: clamp(1.45rem, 3vw, 2.1rem); line-height: 1.28; font-weight: 600; letter-spacing: -0.025em; }
-.about-p { font-size: 1.12rem; color: var(--muted); max-width: 40em; }
+.about-p { font-size: 1.12rem; color: var(--b-muted); max-width: 38em; }
 .fun {
-  margin-top: 16px;
+  --grain: 0.2;
   background: var(--sand);
   color: var(--sand-fg);
-  padding: 24px 28px;
-  font-size: 1.1rem;
+  padding: 28px 32px;
+  font-size: 1.15rem;
+  line-height: 1.5;
 }
-.fun strong { display: block; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--sand-green); margin-bottom: 4px; }
-.facts { display: grid; gap: 0; align-content: start; }
-.fact { position: relative; display: flex; flex-direction: column; padding-block: 18px; border-top: 1px solid var(--line); }
-.fact:first-child { border-top: 3px solid var(--green); }
-.fact dt { font-size: 0.9rem; color: var(--muted); }
-.fact dd { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.25; }
-body.editing .fact { flex-direction: row; flex-wrap: wrap; gap: 8px; align-items: baseline; }
+.fun strong { display: block; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--sand-green); margin-bottom: 6px; }
 
-/* Zkušenosti: zelený pás */
-.band-forest { background: var(--forest); color: var(--forest-fg); }
+/* Zkušenosti */
 .jobs { list-style: none; padding: 0; display: grid; }
-.job { position: relative; display: grid; gap: 8px 48px; padding-block: 36px; border-top: 1px solid var(--forest-line); }
-.job:last-child { border-bottom: 1px solid var(--forest-line); }
-@media (min-width: 760px) { .job { grid-template-columns: 260px minmax(0, 1fr); } }
+.job { position: relative; display: grid; gap: 8px 48px; padding-block: 36px; border-top: 1px solid var(--b-line); }
+.job:last-child { border-bottom: 1px solid var(--b-line); }
+@media (min-width: 760px) { .job { grid-template-columns: 280px minmax(0, 1fr); } }
 .job-dates {
-  font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem);
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
   line-height: 1.2;
-  color: var(--forest-accent);
+  color: var(--b-accent);
   font-variant-numeric: tabular-nums;
 }
 .job-main { min-width: 0; display: grid; gap: 4px; }
-.job-role { font-size: clamp(1.4rem, 2.6vw, 1.9rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; }
-.job-company { color: var(--forest-muted); font-size: 1.05rem; }
+.job-role { font-size: clamp(1.4rem, 2.6vw, 2rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1.12; }
+.job-company { color: var(--b-muted); font-size: 1.05rem; }
 .job-points { list-style: none; padding: 0; margin-top: 12px; display: grid; gap: 6px; }
 .job-points li { position: relative; padding-left: 22px; display: flex; gap: 8px; align-items: baseline; }
-.job-points li::before { content: '–'; position: absolute; left: 0; color: var(--forest-accent); }
-.band-forest .add-btn { color: var(--forest-fg); }
+.job-points li::before { content: '–'; position: absolute; left: 0; color: var(--b-accent); }
 
-/* Dovednosti */
+/* Co umím */
 .skills { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px 48px; }
 @media (min-width: 640px) { .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.skill { position: relative; display: grid; align-content: start; gap: 6px; padding-top: 20px; border-top: 3px solid var(--green); }
-.skill h3 { font-size: clamp(1.35rem, 2.4vw, 1.75rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; }
-.skill p { color: var(--muted); font-size: 1.05rem; }
-.also { margin-top: 56px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; }
-.also-label { color: var(--muted); font-size: 0.95rem; }
-.tags { display: inline; list-style: none; padding: 0; font-size: clamp(1.25rem, 2.6vw, 1.8rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.4; }
+.skill { position: relative; display: grid; align-content: start; gap: 6px; padding-top: 20px; border-top: 3px solid var(--b-accent); }
+.skill h3 { font-size: clamp(1.35rem, 2.4vw, 1.8rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1.12; }
+.skill p { color: var(--b-muted); font-size: 1.05rem; }
+.also { margin-top: 64px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; }
+.also-label { color: var(--b-muted); font-size: 0.95rem; }
+.tags { display: inline; list-style: none; padding: 0; font-size: clamp(1.3rem, 2.8vw, 2rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1.35; }
 .tags li { display: inline; }
-.tags li:not(:last-of-type)::after { content: ' / '; color: var(--green); font-weight: 400; }
+.tags li:not(:last-of-type)::after { content: ' / '; color: var(--b-accent); font-weight: 400; }
 body.editing .tags li::after { content: none; }
 body.editing .tags { display: flex; flex-wrap: wrap; gap: 10px; }
 body.editing .tags li { display: inline-flex; gap: 6px; align-items: center; }
 
-/* Kontakt: pískový pás */
-.band-sand { background: var(--sand); color: var(--sand-fg); }
-.band-sand .band-intro { color: var(--sand-muted); }
-.band-sand .big-title .accent { color: var(--sand-green); }
+/* Kontakt */
+.contact-head { display: grid; gap: 20px 48px; margin-bottom: 40px; }
+@media (min-width: 860px) { .contact-head { grid-template-columns: minmax(0, 1fr) minmax(0, 20rem); align-items: end; } }
 .email-big {
-  font-size: clamp(1.9rem, 6.5vw, 4.6rem);
+  font-size: clamp(1.9rem, 7vw, 5.2rem);
   font-weight: 800;
-  letter-spacing: -0.045em;
-  line-height: 1.1;
+  letter-spacing: -0.05em;
+  line-height: 1.08;
   overflow-wrap: anywhere;
 }
-.email-big .link { text-decoration-thickness: 4px; text-underline-offset: 10px; text-decoration-color: var(--sand-green); }
-.email-big .link:hover { color: var(--sand-green); }
-.contact-links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 32px; margin-top: 32px; font-size: 1.05rem; }
-.band-sand .link { text-decoration-color: var(--sand-green); }
+.email-big .link { text-decoration-thickness: 4px; text-underline-offset: 12px; }
+.contact-links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 32px; margin-top: 36px; font-size: 1.05rem; }
 .text-btn {
   border: none; background: none; padding: 0;
-  color: var(--sand-muted);
+  color: var(--b-muted);
   text-decoration: underline; text-underline-offset: 4px;
   cursor: pointer;
 }
-.text-btn:hover { color: var(--sand-fg); }
+.text-btn:hover { color: var(--b-fg); }
 
-.site-footer { background: var(--forest); color: var(--forest-muted); font-size: 0.92rem; }
+.site-footer { --grain: 0.5; background: var(--forest); color: var(--forest-muted); font-size: 0.92rem; }
 .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding-block: 28px; }
 .site-footer .link { text-decoration-color: var(--forest-accent); font-weight: 500; }
+.site-footer .link:hover { color: var(--forest-accent); }
 
 /* ---------- Režim úprav ---------- */
 .editbar {
@@ -331,7 +386,7 @@ body.editing .edit-only { display: inline-flex !important; }
 .job > .del-btn, .skill > .del-btn { position: absolute; top: 0; right: 0; }
 body.editing .job, body.editing .skill { padding-right: 40px; }
 .row-actions { display: flex; flex-wrap: wrap; gap: 10px; }
-.photo-actions { position: absolute; z-index: 3; right: 16px; bottom: 16px; gap: 8px; flex-wrap: wrap; }
+.photo-actions { position: absolute; z-index: 4; right: 16px; top: 72px; gap: 8px; flex-wrap: wrap; }
 .photo-actions .add-btn { background: var(--sand); color: var(--sand-fg); }
 </style>
 <script type="application/json" id="page-data">
@@ -345,10 +400,18 @@ body.editing .job, body.editing .skill { padding-right: 40px; }
     "[Krátké představení – kdo jsem, čemu se věnuji a co mě baví. Sem patří text ze sekce „Info“ na LinkedInu.]",
     "[Druhý odstavec – na čem teď pracuji, jaké problémy rád řeším, případně něco osobního mimo práci.]"
   ],
+  "seeking": {
+    "headline": "Hledám práci jako [pozice / obor], kde můžu [co chci dělat].",
+    "items": [
+      { "label": "Úvazek", "value": "[Plný úvazek]" },
+      { "label": "Kde", "value": "[Město / hybridně / na dálku]" },
+      { "label": "Nástup", "value": "[Ihned]" }
+    ]
+  },
   "fun": "[Jedna zábavná nebo překvapivá věc o mně.]",
   "facts": [
     { "label": "Lokalita", "value": "[Město, Česko]" },
-    { "label": "Aktuálně", "value": "Hledám novou práci" },
+    { "label": "Hledám", "value": "[Obor / pozice]" },
     { "label": "Vzdělání", "value": "[Škola / obor]" },
     { "label": "Jazyky", "value": "Čeština, [Angličtina]" }
   ],
@@ -375,6 +438,17 @@ body.editing .job, body.editing .skill { padding-right: 40px; }
 
   var app = document.getElementById('app');
   var saved = JSON.parse(document.getElementById('page-data').textContent);
+  if (!saved.seeking) {
+    saved.seeking = {
+      headline: 'Hledám práci jako [pozice / obor], kde můžu [co chci dělat].',
+      items: [
+        { label: 'Úvazek', value: '[Plný úvazek]' },
+        { label: 'Kde', value: '[Město / hybridně / na dálku]' },
+        { label: 'Nástup', value: '[Ihned]' }
+      ]
+    };
+  }
+  if (!saved.about.length) saved.about.push('');
   var state = clone(saved);
   var editing = false;
   var artifactApi = null;
@@ -416,11 +490,13 @@ body.editing .job, body.editing .skill { padding-right: 40px; }
   function add(action, label) {
     return '<button type="button" class="add-btn edit-only" data-action="' + action + '">+ ' + esc(label) + '</button>';
   }
-  function band(id, cls, title, intro, body) {
-    return '<section class="band ' + cls + '" id="' + id + '"><div class="wrapper">' +
-      '<div class="band-head"><h2 class="big-title">' + title + '</h2>' + (intro || '') + '</div>' +
+  function band(id, cls, title, note, body) {
+    var grain = /band-(forest|sand)/.test(cls) ? ' grain' : '';
+    return '<section class="band ' + cls + grain + '" id="' + id + '"><div class="wrapper">' +
+      '<div class="band-head"><h2 class="big-title">' + title + '</h2>' + (note ? '<p class="band-note">' + note + '</p>' : '') + '</div>' +
       body + '</div></section>';
   }
+  function plural(n, one, few, many) { return n + ' ' + (n === 1 ? one : n >= 2 && n <= 4 ? few : many); }
 
   function render() {
     var s = state;
@@ -438,10 +514,10 @@ body.editing .job, body.editing .skill { padding-right: 40px; }
 
     // Úvod
     html +=
-      '<header class="hero" id="top">' +
+      '<header class="hero grain" id="top">' +
         '<div class="wrapper hero-inner">' +
           '<div class="topbar"><a class="topbar-name" href="#top">' + esc(s.name) + '</a>' +
-            '<nav aria-label="Hlavní navigace"><a href="#o-mne">O mně</a><a href="#zkusenosti">Zkušenosti</a><a href="#dovednosti">Dovednosti</a><a href="#kontakt">Kontakt</a></nav></div>' +
+            '<nav aria-label="Hlavní navigace"><a href="#hledam">Co hledám</a><a href="#o-mne">O mně</a><a href="#zkusenosti">Zkušenosti</a><a href="#dovednosti">Dovednosti</a><a href="#kontakt">Kontakt</a></nav></div>' +
           (src ? '<div class="hero-photo"><img src="' + esc(src) + '" alt="' + esc(s.name) + '"></div>' : '') +
           '<div class="hero-body">' +
             ((editing || String(s.status).trim()) ? f('p', 'status', 'hero-kicker', 'Např. Momentálně hledám novou práci') : '') +
@@ -452,6 +528,12 @@ body.editing .job, body.editing .skill { padding-right: 40px; }
             '<p class="hero-links"><a class="link" href="#kontakt">Napište mi</a><a class="link" href="' + esc(s.linkedin) + '" target="_blank" rel="noopener">LinkedIn ↗</a></p>' +
           '</div>' +
         '</div>' +
+        '<div class="hero-facts-wrap"><div class="wrapper"><dl class="hero-facts">' +
+          s.facts.map(function (_, i) {
+            return '<div class="hero-fact">' + f('dt', 'facts.' + i + '.label', '', 'Popisek') + f('dd', 'facts.' + i + '.value', '', 'Hodnota') + del('del-fact:' + i, 'Smazat údaj') + '</div>';
+          }).join('') +
+          (s.facts.length < 4 ? '<div>' + add('add-fact', 'Přidat údaj') + '</div>' : '') +
+        '</dl></div></div>' +
         (assetsApi ? '<span class="edit-only photo-actions">' +
           '<button type="button" class="add-btn" data-action="upload-photo">' + (s.photo ? 'Změnit fotku' : 'Nahrát fotku') + '</button>' +
           (s.photo ? '<button type="button" class="add-btn" data-action="remove-photo">Odebrat fotku</button>' : '') +
@@ -460,25 +542,35 @@ body.editing .job, body.editing .skill { padding-right: 40px; }
 
     html += '<main id="main">';
 
+    // Co hledám
+    var sk = s.seeking;
+    html += band('hledam', 'band-forest', 'Co hledám', '',
+      f('p', 'seeking.headline', 'seek-headline', 'Jakou práci hledám') +
+      '<dl class="seek-grid">' +
+        sk.items.map(function (_, i) {
+          return '<div class="seek-item">' + f('dt', 'seeking.items.' + i + '.label', '', 'Popisek') + f('dd', 'seeking.items.' + i + '.value', '', 'Hodnota') + del('del-seek:' + i, 'Smazat') + '</div>';
+        }).join('') +
+      '</dl>' +
+      '<div class="row-actions">' + add('add-seek', 'Přidat řádek') + '</div>' +
+      '<p class="seek-cta"><a class="link" href="#kontakt">Mám pro vás nabídku</a></p>'
+    );
+
     // O mně
     html += band('o-mne', '', 'O mně', '',
+      '<div class="para">' + f('p', 'about.0', 'about-lead', 'Úvodní věta o mně') + '</div>' +
       '<div class="about-grid"><div class="about-text">' +
-        s.about.map(function (_, i) {
-          return '<div class="para">' + f('p', 'about.' + i, i === 0 ? 'about-lead' : 'about-p', 'Odstavec textu') + (s.about.length > 1 ? del('del-para:' + i, 'Smazat odstavec') : '') + '</div>';
+        s.about.slice(1).map(function (_, k) {
+          var i = k + 1;
+          return '<div class="para">' + f('p', 'about.' + i, 'about-p', 'Odstavec textu') + del('del-para:' + i, 'Smazat odstavec') + '</div>';
         }).join('') +
         '<div class="row-actions">' + add('add-para', 'Přidat odstavec') + '</div>' +
-        '<p class="fun"><strong>Zajímavost</strong>' + f('span', 'fun', '', 'Něco zajímavého o mně') + '</p>' +
       '</div>' +
-      '<div><dl class="facts">' +
-        s.facts.map(function (_, i) {
-          return '<div class="fact">' + f('dt', 'facts.' + i + '.label', '', 'Popisek') + f('dd', 'facts.' + i + '.value', '', 'Hodnota') + del('del-fact:' + i, 'Smazat údaj') + '</div>';
-        }).join('') +
-      '</dl><div class="row-actions">' + add('add-fact', 'Přidat údaj') + '</div></div>' +
+      '<p class="fun grain"><strong>Zajímavost</strong>' + f('span', 'fun', '', 'Něco zajímavého o mně') + '</p>' +
       '</div>'
     );
 
     // Zkušenosti
-    html += band('zkusenosti', 'band-forest', 'Zkušenosti', '',
+    html += band('zkusenosti', '', 'Zkušenosti', plural(s.experience.length, 'pozice', 'pozice', 'pozic'),
       '<ol class="jobs">' +
         s.experience.map(function (job, i) {
           var p = 'experience.' + i;
@@ -500,8 +592,8 @@ body.editing .job, body.editing .skill { padding-right: 40px; }
       '<div class="row-actions" style="margin-top:24px">' + add('add-exp', 'Přidat pozici') + '</div>'
     );
 
-    // Dovednosti
-    html += band('dovednosti', '', 'Co umím', '',
+    // Co umím
+    html += band('dovednosti', 'band-forest', 'Co umím', '',
       '<div class="skills">' +
         s.skills.map(function (_, i) {
           var p = 'skills.' + i;
@@ -515,15 +607,16 @@ body.editing .job, body.editing .skill { padding-right: 40px; }
     );
 
     // Kontakt
-    html += band('kontakt', 'band-sand', 'Napište mi<span class="accent">.</span>', f('p', 'contactLede', 'band-intro', 'Výzva ke kontaktu'),
+    html += '<section class="band band-sand grain" id="kontakt"><div class="wrapper">' +
+      '<div class="contact-head"><h2 class="big-title">Napište mi<span class="accent">.</span></h2>' + f('p', 'contactLede', 'band-intro', 'Výzva ke kontaktu') + '</div>' +
       '<p class="email-big">' + (editing ? f('span', 'email', 'email', 'tvuj@email.cz') : '<a class="link email" href="mailto:' + esc(s.email) + '">' + esc(s.email) + '</a>') + '</p>' +
-      '<p class="contact-links"><button type="button" class="text-btn" data-action="copy-email">Zkopírovat e-mail</button><a class="link" href="' + esc(s.linkedin) + '" target="_blank" rel="noopener">LinkedIn ↗</a></p>'
-    );
+      '<p class="contact-links"><button type="button" class="text-btn" data-action="copy-email">Zkopírovat e-mail</button><a class="link" href="' + esc(s.linkedin) + '" target="_blank" rel="noopener">LinkedIn ↗</a></p>' +
+    '</div></section>';
 
     html += '</main>';
 
     html +=
-      '<footer class="site-footer"><div class="wrapper footer-inner">' +
+      '<footer class="site-footer grain"><div class="wrapper footer-inner">' +
         '<p>© ' + new Date().getFullYear() + ' ' + esc(s.name) + '</p>' +
         '<a class="link" href="#top">Zpět nahoru</a>' +
       '</div></footer>';
@@ -656,6 +749,8 @@ body.editing .job, body.editing .skill { padding-right: 40px; }
       case 'upload-photo': document.getElementById('photo-input').click(); return;
       case 'remove-photo': state.photo = ''; break;
       case 'add-para': state.about.push(''); break;
+      case 'add-seek': state.seeking.items.push({ label: '[Popisek]', value: '[Hodnota]' }); break;
+      case 'del-seek': state.seeking.items.splice(a, 1); break;
       case 'del-para': state.about.splice(a, 1); break;
       case 'add-fact': state.facts.push({ label: '[Popisek]', value: '[Hodnota]' }); break;
       case 'del-fact': state.facts.splice(a, 1); break;
